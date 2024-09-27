@@ -98,7 +98,8 @@ class Out
 
     public static function clearView(): void
     {
-        if(GameLoop::$cli === "linux") echo shell_exec("clear");
+        if(GameLoop::$platform === Platform::LINUX)
+            echo shell_exec("clear");
     }
 
 
