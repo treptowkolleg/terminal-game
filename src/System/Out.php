@@ -100,6 +100,8 @@ class Out
     {
         if(GameLoop::$platform === Platform::LINUX)
             echo shell_exec("clear");
+        if(GameLoop::$platform === Platform::WINDOWS)
+            echo exec(PROJECT_DIR . "/bin/clear.bat");
     }
 
 
