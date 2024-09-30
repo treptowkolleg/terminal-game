@@ -11,14 +11,14 @@ class Out
      * Gibt Text MIT Zeilenumbruch aus.
      * @param string $text Text, der ausgegeben werden soll.
      * @param TextColor $color Textfarbe (Standard ist weiß)
-     * @param BackgroundColor $background Hintergrundfarbe (Standard ist schwarz)
+     * @param BackgroundColor $background Hintergrundfarbe (Standard ist none)
      */
-    public static function printLn(string $text, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::black): void
+    public static function printLn(string $text, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::none): void
     {
         echo sprintf("%s%s%s%s\n",self::setColor($color),self::setColor($background),$text,self::setColor('0'));
     }
 
-    public static function printListLn(string $titel, string $text, int $width = 32, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::black): void
+    public static function printListLn(string $titel, string $text, int $width = 32, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::none): void
     {
         $dotLength = $width - ( strlen($titel) + strlen($text) );
         $dots = '';
@@ -33,7 +33,7 @@ class Out
      * @param TextColor $color Textfarbe (Standard ist weiß)
      * @param BackgroundColor $background Hintergrundfarbe (Standard ist schwarz)
      */
-    public static function print(string $text, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::black): void
+    public static function print(string $text, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::none): void
     {
         echo sprintf("%s%s%s%s",self::setColor($color),self::setColor($background),$text,self::setColor('0'));
     }
@@ -57,7 +57,7 @@ class Out
      * @param BackgroundColor $background Hintergrundfarbe (Standard ist schwarz)
      * @param int $whitespace Leerzeichen zwischen Rand und Text
      */
-    public static function printHeading(string $text, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::black, int $whitespace = 6): void
+    public static function printHeading(string $text, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::none, int $whitespace = 6): void
     {
         self::generateFrame($text, whitespace: $whitespace, color: $color, background: $background);
     }
@@ -69,7 +69,7 @@ class Out
      * @param TextColor $color Textfarbe (Standard ist weiß)
      * @param BackgroundColor $background Hintergrundfarbe (Standard ist schwarz)
      */
-    private static function generateFrame(string $text, string $frameChar = "#", int $whitespace = 1, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::black): void
+    private static function generateFrame(string $text, string $frameChar = "#", int $whitespace = 1, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::none): void
     {
         $horizontalLine = '';
         $whiteSpaceLine = '';
@@ -98,10 +98,7 @@ class Out
 
     public static function clearView(): void
     {
-        if(GameLoop::$platform === Platform::LINUX)
-            echo shell_exec("clear");
-        if(GameLoop::$platform === Platform::WINDOWS)
-            echo exec(PROJECT_DIR . "/bin/clear.bat");
+        echo "\033[2J\033[1;1H";
     }
 
 
