@@ -4,6 +4,7 @@ namespace App\Story;
 
 use App\Chars\MrSchubert;
 use App\Chars\MsMuller;
+use App\GameLoop;
 use App\System\In;
 use App\System\Out;
 
@@ -31,6 +32,10 @@ class Text
         Out::printHeading("Auf Abiwegen am Kolleg");
         In::readLn("weiter... ");
 
+        // Array zurücksetzen
+        self::$answers = [];
+
+        // Array füllen
         if(MsMuller::$count == 0) self::$answers[] = [
             "text" => "Mit Frau Müller sprechen",
             "key" => "1",
@@ -62,17 +67,7 @@ class Text
             Out::printLn($answer['key'] . ": " . $answer['text']);
         }
 
-        while (true) {
-            $input = In::readLn();
-            foreach (self::$answers as $answer) {
-                if($answer["key"] == $input) {
-                    Out::clearView();
-                    return call_user_func($answer["action"]);
-                }
-            }
-            if($input == "exit")    return Scene::EXIT;
-        }
-
+        return GameLoop::getInput(self::$answers);
     }
 
 }
