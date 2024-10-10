@@ -10,7 +10,6 @@ use App\System\Out;
 
 class Text
 {
-    private static array $answers = [];
 
     public static function end(): Scene
     {
@@ -33,10 +32,10 @@ class Text
         In::readLn("weiter... ");
 
         // Array zurücksetzen
-        self::$answers = [];
+        GameLoop::resetAnswers();
 
         // Array füllen
-        if(MsMuller::$count == 0) self::$answers[] = [
+        if(MsMuller::$count == 0) GameLoop::addAnswer([
             "text" => "Mit Frau Müller sprechen",
             "key" => "1",
             "action" => function () {
@@ -47,7 +46,7 @@ class Text
                 // Zur nächsten Szene wechseln
                 return Scene::CAFETERIA_0101;
             }
-        ];
+        ]);
 
         $text = <<<TXT
 
@@ -63,11 +62,8 @@ class Text
 
         Out::printLn($text);
 
-        foreach (self::$answers as $answer) {
-            Out::printLn($answer['key'] . ": " . $answer['text']);
-        }
-
-        return GameLoop::getInput(self::$answers);
+        GameLoop::printAnswers();
+        return GameLoop::getInput();
     }
 
 }
