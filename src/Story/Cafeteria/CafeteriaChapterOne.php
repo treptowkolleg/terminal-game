@@ -2,6 +2,7 @@
 
 namespace App\Story\Cafeteria;
 
+use App\Chars\MsMuller;
 use App\Story\Scene;
 use App\System\In;
 use App\System\Out;
@@ -11,6 +12,8 @@ class CafeteriaChapterOne
 
     public static function sceneA1(): Scene
     {
+
+
         $text = <<<TXT
 
         Du gehst zur Theke und fragst Frau Müller nach dem Rezept für ihr beliebtes Chili con Carne.

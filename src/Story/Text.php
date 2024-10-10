@@ -2,11 +2,14 @@
 
 namespace App\Story;
 
+use App\Chars\MrSchubert;
+use App\Chars\MsMuller;
 use App\System\In;
 use App\System\Out;
 
 class Text
 {
+    private static array $answers = [];
 
     public static function end(): Scene
     {
@@ -28,6 +31,19 @@ class Text
         Out::printHeading("Auf Abiwegen am Kolleg");
         In::readLn("weiter... ");
 
+        if(MsMuller::$count == 0) self::$answers[] = [
+            "text" => "Mit Frau Müller sprechen",
+            "key" => "1",
+            "action" => function () {
+                // Frau Müllers Zähler erhöhen
+                MsMuller::$count++;
+                // Herrn Schuberts Zähler erniedrigen
+                MrSchubert::$count--;
+                // Zur nächsten Szene wechseln
+                return Scene::CAFETERIA_0101;
+            }
+        ];
+
         $text = <<<TXT
 
         Du betrittst die Cafeteria des Treptow-Kollegs, wo der Duft von frisch gebackenem
@@ -37,22 +53,26 @@ class Text
         Gerichte bekannt ist. Heute scheint sie besonders gut gelaunt zu sein. Plötzlich
         hörst du einen lauten Streit zwischen einem Schüler und dem Hausmeister, Herrn Schubert,
         der gerade einen Mülleimer leeren will.
-        
-        1: Mit Frau Müller sprechen
-        2: Den Streit zwischen Herrn Schubert und dem Schüler schlichten
-        3: Sich umhören und das Gerücht erfragen
-        
+                
         TXT;
 
         Out::printLn($text);
-        $input = In::readLn();
 
-        Out::clearView();
+        foreach (self::$answers as $answer) {
+            Out::printLn($answer['key'] . ": " . $answer['text']);
+        }
 
-        if($input == "exit")    return Scene::EXIT;
-        if($input == "1")       return Scene::CAFETERIA_0101;
+        while (true) {
+            $input = In::readLn();
+            foreach (self::$answers as $answer) {
+                if($answer["key"] == $input) {
+                    Out::clearView();
+                    return call_user_func($answer["action"]);
+                }
+            }
+            if($input == "exit")    return Scene::EXIT;
+        }
 
-        return Scene::PROLOG;
     }
 
 }
