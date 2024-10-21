@@ -26,6 +26,15 @@ class Out
         echo sprintf("%s%s%s%s%s%s\n",self::setColor($color), self::setColor($background),$titel, $dots, $text, self::setColor('0'));
     }
 
+    public static function printOptionLn(string $titel, string $text, int $width = 16, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::none): void
+    {
+        $dotLength = $width - strlen($titel);
+        $textColor = TextColor::white;
+        $dots = '';
+        for($i = 1; $i <= $dotLength; $i++) $dots .= ' ';
+        echo sprintf("%s%s%s%s:%s%s%s\n",self::setColor($color), self::setColor($background),$titel,self::setColor($textColor), $dots, $text, self::setColor('0'));
+    }
+
 
     /**
      * Gibt Text OHNE Zeilenumbruch aus.

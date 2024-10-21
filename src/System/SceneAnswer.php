@@ -9,6 +9,10 @@ class SceneAnswer
 
     private string $label;
     private string $key;
+
+    /**
+     * @var Closure $callback muss Case aus der Enum App\Story\Scene zurückgeben.
+     */
     private Closure $callback;
 
     public function __construct(string $label, string $key, Closure $callback)

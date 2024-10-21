@@ -57,23 +57,24 @@ class Text
             return Scene::PROLOG;
         });
 
+        // Antwort unter bestimmten Bedingungen hinzufügen
+        if(MsMuller::$count >= 0) {
+            GameLoop::addAnswer(
+                SceneAnswer::make("Mit Frau Müller sprechen","1", function(){
+                    MsMuller::$count++;
+                    MrSchubert::$count--;
+                    return "Okay";
+                })
+            );
+        }
+
         // Antworten zum Array hinzufügen
-        GameLoop::setAnswers([
-            SceneAnswer::make("Den Streit zwischen Herrn Schubert und dem Schüler schlichten","2",function(){
+        GameLoop::addAnswers([
+            SceneAnswer::make("Den Streit zwischen Herrn Schubert und dem Schüler schlichten","schlichten",function(){
                 return Scene::CAFETERIA_0102;
             }),
             $ca3
         ]);
-
-        // Antwort unter bestimmten Bedingungen hinzufügen
-        if(MsMuller::$count >= 0) {
-            $answer = SceneAnswer::make("Mit Frau Müller sprechen","1",function(){
-                MsMuller::$count++;
-                MrSchubert::$count--;
-                return Scene::CAFETERIA_0101;}
-            );
-            GameLoop::addAnswer($answer);
-        }
 
         return GameLoop::checkAnswers();
     }
