@@ -81,7 +81,11 @@ class GameLoop
                     try {
                         return call_user_func($answer->getCallback());
                     } catch (TypeError) {
-                        exit(sprintf("Callback gibt keine Instanz von %s zurück!\nBetroffene Antwort: %s\n\n",Scene::class, $answer->getLabel()));
+                        exit(sprintf(
+                            "Callback gibt keine Instanz von %s zurück!\n
+                            Betroffene Antwort: %s\n\n",
+                            Scene::class, $answer->getLabel())
+                        );
                     }
                 }
                 if($input == "exit") return Scene::EXIT;
