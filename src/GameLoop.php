@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Story\Cafeteria\CafeteriaChapterOne;
-use App\Story\Text;
 use App\Story\Scene;
 use App\System\In;
 use App\System\Out;
@@ -14,15 +12,15 @@ use TypeError;
 class GameLoop
 {
 
-    private Scene $scene = Scene::PROLOG;
+    public static Scene $scene = Scene::PROLOG;
     public static array $answers = [];
 
     public function start(): void
     {
         Out::clearView();
         while(true) {
-            Scene::match($this->scene);
-            if($this->scene === Scene::EXIT) break;
+            Scene::match(self::$scene);
+            if(self::$scene === Scene::EXIT) break;
         }
         Out::clearView();
         Out::printHeading("Das Spiel wurde beendet!");
