@@ -9,7 +9,6 @@ use App\System\In;
 use App\System\Out;
 use App\System\SceneAnswer;
 use App\System\TextColor;
-use Exception;
 use TypeError;
 
 class GameLoop
@@ -22,14 +21,7 @@ class GameLoop
     {
         Out::clearView();
         while(true) {
-
-            $this->scene = match($this->scene)
-            {
-                Scene::PROLOG => Text::prolog(),
-                Scene::EPILOG => Text::end(),
-                Scene::CAFETERIA_0101 => CafeteriaChapterOne::sceneA1(),
-            };
-
+            Scene::match($this->scene);
             if($this->scene === Scene::EXIT) break;
         }
         Out::clearView();
@@ -82,8 +74,7 @@ class GameLoop
                         return call_user_func($answer->getCallback());
                     } catch (TypeError) {
                         exit(sprintf(
-                            "Callback gibt keine Instanz von %s zurück!\n
-                            Betroffene Antwort: %s\n\n",
+                            "Callback gibt keine Instanz von %s zurück!\nBetroffene Antwort: %s\n\n",
                             Scene::class, $answer->getLabel())
                         );
                     }
