@@ -35,8 +35,14 @@ class Text
 
 
         /*
-         * Nur allgemeine Szenenbeschreibung, alles was Personen betrifft, bedingt über die Methoden der jeweiligen
+         * Nur allgemeine Szenenbeschreibung; alles was Personen betrifft bedingt über die Methoden der jeweiligen
          * Personen ausgeben. Entweder direkt, oder über ein Kommando (umsehen?).
+         *
+         * Dann sowas wie: GameLoop::addChars(MsMuller, MrSchubert);
+         * Dann: foreach Chars as Char ... bla, bla, bla, ... char::setup();
+         *
+         * Hier würde ich GameLoop.php auch inzwischen in GameEngine.php umbenennen, da Engine hier das bessere
+         * Wort ist. Denn dieses Objekt verwaltet nun sämtliche Szenen und Charaktere. Oder?
          */
         $text = <<<TXT
 
@@ -55,7 +61,6 @@ class Text
 
         MsMuller::setup();
         MrSchubert::setup();
-
         return GameLoop::checkAnswers();
     }
 
