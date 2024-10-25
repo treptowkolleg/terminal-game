@@ -13,14 +13,14 @@ class MrSchubert extends Char
     public static function setup(): void
     {
         $scene = match(GameLoop::$scene) {
-            Scene::PROLOG => "Cafeteria",
+            Scene::PROLOG => "cafeteria",
             default => ""
         };
         if($scene)
             call_user_func([self::class,$scene]);
     }
 
-    private static function Cafeteria(): void
+    private static function cafeteria(): void
     {
         if(MsMuller::$count >= 0) {
             GameLoop::addAnswer(
