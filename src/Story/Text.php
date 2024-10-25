@@ -32,9 +32,7 @@ class Text
         In::readLn("weiter... ");
 
         // Auch nach Char verschieben?
-        $mm = "Heute scheint sie besonders gut gelaunt zu sein.";
-        if(MsMuller::$count < 0)
-            $mm = "Heute hat sie sehr schlechte Laune.";
+
 
         /*
          * Nur allgemeine Szenenbeschreibung, alles was Personen betrifft, bedingt über die Methoden der jeweiligen
@@ -46,7 +44,7 @@ class Text
         Brot und heißen Pommes in der Luft hängt. Die Tische sind gut gefüllt, und du bemerkst,
         dass einige Schüler über die neuesten Gerüchte austauschen.Hinter der Theke steht
         Frau Müller, die Köchin, die für ihre schmackhaften, aber manchmal merkwürdigen
-        Gerichte bekannt ist. $mm
+        Gerichte bekannt ist.
         Plötzlich hörst du einen lauten Streit zwischen einem Schüler und dem Hausmeister,
         Herrn Schubert, der gerade einen Mülleimer leeren will.
                 

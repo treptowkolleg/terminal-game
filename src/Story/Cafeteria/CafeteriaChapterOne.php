@@ -2,9 +2,11 @@
 
 namespace App\Story\Cafeteria;
 
+use App\GameLoop;
 use App\Story\Scene;
 use App\System\In;
 use App\System\Out;
+use App\System\SceneAnswer;
 
 class CafeteriaChapterOne
 {
@@ -23,15 +25,13 @@ class CafeteriaChapterOne
         
         TXT;
 
-        while(true) {
-            Out::printLn($text);
+        Out::printLn($text);
 
-            switch (In::readLn()) {
-                case "a":       return Scene::EPILOG;
-                case "exit":    return Scene::EXIT;
-            }
-            Out::clearView();
-        }
+        GameLoop::addAnswer(SceneAnswer::make("Weggehen","1",function (){
+            return Scene::PROLOG;
+        }));
+
+        return GameLoop::checkAnswers();
     }
 
 }
