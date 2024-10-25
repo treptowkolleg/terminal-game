@@ -7,7 +7,7 @@ use App\Story\Scene;
 use App\System\Out;
 use App\System\SceneAnswer;
 
-class MsMuller extends AbstractCharacter
+class MsMuller extends Char
 {
     public static int $count = 0;
     public static string $moodText = "";
@@ -30,7 +30,7 @@ class MsMuller extends AbstractCharacter
     private static function dings()
     {
         self::$moodText = "Frau Müller wartet auf die Lernenden, um Ihnen Kaffee auszuschenken.";
-        self::printMoodText();
+        Char::print(self::$moodText);
 
     }
 
@@ -41,10 +41,8 @@ class MsMuller extends AbstractCharacter
             1 => "Frau Müller ist heute besonders gut gelaunt"
         ];
 
-        self::$count = rand(0,count(self::$options)-1);
-        self::$moodText = self::$options[self::$count];
-
-        self::printMoodText();
+        Char::randomize(self::$count, self::$options,self::$moodText);
+        Char::print(self::$moodText);
 
         if(self::$count == 1) {
             GameLoop::addAnswer(
@@ -55,12 +53,6 @@ class MsMuller extends AbstractCharacter
                 })
             );
         }
-    }
-
-    private static function printMoodText(): void
-    {
-        if(self::$moodText)
-            Out::printLn(self::$moodText);
     }
 
 }

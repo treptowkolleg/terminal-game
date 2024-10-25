@@ -6,7 +6,7 @@ use App\GameLoop;
 use App\Story\Scene;
 use App\System\SceneAnswer;
 
-class MrSchubert extends AbstractCharacter
+class MrSchubert extends Char
 {
     public static int $count = 0;
 

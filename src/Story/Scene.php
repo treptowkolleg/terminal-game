@@ -22,6 +22,7 @@ enum Scene
             Scene::PROLOG => Text::prolog(),
             Scene::EPILOG => Text::end(),
             Scene::CAFETERIA_0101 => CafeteriaChapterOne::sceneA1(),
+            Scene::AULA => CafeteriaChapterOne::aulaA1(),
         };
     }
 

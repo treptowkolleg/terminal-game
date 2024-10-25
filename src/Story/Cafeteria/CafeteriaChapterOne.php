@@ -2,6 +2,7 @@
 
 namespace App\Story\Cafeteria;
 
+use App\Chars\MsMuller;
 use App\GameLoop;
 use App\Story\Scene;
 use App\System\In;
@@ -28,9 +29,15 @@ class CafeteriaChapterOne
         Out::printLn($text);
 
         GameLoop::addAnswer(SceneAnswer::make("Weggehen","1",function (){
-            return Scene::PROLOG;
+            return Scene::AULA;
         }));
 
+        return GameLoop::checkAnswers();
+    }
+
+    public static function aulaA1(): Scene
+    {
+        MsMuller::setup();
         return GameLoop::checkAnswers();
     }
 
