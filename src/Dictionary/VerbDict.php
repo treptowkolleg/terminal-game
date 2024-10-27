@@ -13,6 +13,7 @@ namespace App\Dictionary;
  * kletter  Baum            nach            oben
  * kletter                  von             Baum
  * kletter                  auf             Baum
+ * gehe                     nach            Norden
  */
 
 enum VerbDict: string
