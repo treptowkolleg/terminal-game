@@ -7,7 +7,6 @@ use App\System\In;
 use App\System\Out;
 use App\System\SceneAnswer;
 use App\System\TextColor;
-use TypeError;
 
 class GameLoop
 {
@@ -15,15 +14,22 @@ class GameLoop
     public static Scene $scene = Scene::PROLOG;
     public static array $answers = [];
 
+    public function __destruct()
+    {
+        Out::printHeading("Das Spiel wurde beendet!");
+    }
+
     public function start(): void
     {
         Out::clearView();
         while(true) {
             Scene::match(self::$scene);
-            if(self::$scene === Scene::EXIT) break;
         }
-        Out::clearView();
-        Out::printHeading("Das Spiel wurde beendet!");
+    }
+
+    public static function stop(): void
+    {
+        exit(0);
     }
 
     public static function resetAnswers(): void
@@ -41,13 +47,9 @@ class GameLoop
         self::$answers = array_merge(self::$answers, $answers);
     }
 
-    public static function setAnswers(array $answers): void
-    {
-        self::$answers = $answers;
-    }
-
     public static function printAnswers(): void
     {
+        Out::printLn("");
         foreach(self::$answers as $answer) {
             if($answer instanceof SceneAnswer) {
                 Out::printOptionLn($answer->getKey(), $answer->getLabel(), color: TextColor::green);
@@ -57,28 +59,25 @@ class GameLoop
 
     public static function checkAnswers(): Scene
     {
-        self::printAnswers();
         while(true) {
+
+            /** @deprecated Antworten werden künftig nicht mehr ausgegeben! */
+            self::printAnswers();
+
             // Benutzer-Abfrage
             $input = In::readLn();
             foreach (self::$answers as $answer) {
                 if($answer instanceof SceneAnswer && $answer->getKey() == $input) {
-                    // Antwortmöglichkeiten entfernen
-                    self::resetAnswers();
-                    // Bildschirm löschen
-                    Out::clearView();
-                    // benutzerdefinierte Funktion ausführen (anonyme Funktion)
-                    try {
-                        return call_user_func($answer->getCallback());
-                    } catch (TypeError) {
-                        exit(sprintf(
-                            "Callback gibt keine Instanz von %s zurück!\nBetroffene Antwort: %s\n\n",
-                            Scene::class, $answer->getLabel())
-                        );
+                    $return = call_user_func($answer->getCallback());
+                    if($return instanceof Scene) {
+                        self::resetAnswers();
+                        Out::clearView();
+                        return $return;
                     }
+                    break;
                 }
-                if($input == "exit") return Scene::EXIT;
             }
+            if($input == "exit") return Scene::EXIT;
         }
     }
 

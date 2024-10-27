@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Story;
+namespace App\Story\Chapter01;
+
 
 use App\Chars\MrSchubert;
 use App\Chars\MsMuller;
 use App\GameLoop;
+use App\Story\Scene;
 use App\System\In;
 use App\System\Out;
 
-class Text
+class Prolog
 {
 
     public static function end(): Scene
@@ -61,6 +63,7 @@ class Text
 
         MsMuller::setup();
         MrSchubert::setup();
+
         return GameLoop::checkAnswers();
     }
 

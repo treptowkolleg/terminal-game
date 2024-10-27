@@ -2,7 +2,9 @@
 
 namespace App\Story;
 
-use App\Story\Cafeteria\CafeteriaChapterOne;
+use App\GameLoop;
+use App\Story\Chapter01\Cafeteria;
+use App\Story\Chapter01\Prolog;
 
 enum Scene
 {
@@ -19,10 +21,11 @@ enum Scene
     {
         $scene = match($scene)
         {
-            Scene::PROLOG => Text::prolog(),
-            Scene::EPILOG => Text::end(),
-            Scene::CAFETERIA_0101 => CafeteriaChapterOne::sceneA1(),
-            Scene::AULA => CafeteriaChapterOne::aulaA1(),
+            Scene::PROLOG => Prolog::prolog(),
+            Scene::EPILOG => Prolog::end(),
+            Scene::CAFETERIA_0101 => Cafeteria::sceneA1(),
+            Scene::AULA => Cafeteria::aulaA1(),
+            Scene::EXIT => GameLoop::stop()
         };
     }
 

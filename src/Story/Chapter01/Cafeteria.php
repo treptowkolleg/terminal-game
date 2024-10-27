@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Story\Cafeteria;
+namespace App\Story\Chapter01;
 
-use App\Chars\MsMuller;
+
 use App\GameLoop;
 use App\Story\Scene;
-use App\System\In;
 use App\System\Out;
 use App\System\SceneAnswer;
 
-class CafeteriaChapterOne
+class Cafeteria
 {
 
     public static function sceneA1(): Scene
@@ -37,7 +36,6 @@ class CafeteriaChapterOne
 
     public static function aulaA1(): Scene
     {
-        MsMuller::setup();
         return GameLoop::checkAnswers();
     }
 

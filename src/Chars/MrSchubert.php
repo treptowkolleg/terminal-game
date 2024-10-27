@@ -4,6 +4,8 @@ namespace App\Chars;
 
 use App\GameLoop;
 use App\Story\Scene;
+use App\System\Char;
+use App\System\Out;
 use App\System\SceneAnswer;
 
 class MrSchubert extends Char
@@ -12,15 +14,14 @@ class MrSchubert extends Char
 
     public static function setup(): void
     {
-        $scene = match(GameLoop::$scene) {
+        $method = match(GameLoop::$scene) {
             Scene::PROLOG => "cafeteria",
             default => ""
         };
-        if($scene)
-            call_user_func([self::class,$scene]);
+        self::run(self::class, $method);
     }
 
-    private static function cafeteria(): void
+    public static function cafeteria(): void
     {
         if(MsMuller::$count >= 0) {
             GameLoop::addAnswer(
@@ -28,7 +29,7 @@ class MrSchubert extends Char
                     "Den Streit zwischen Herrn Schubert und dem Schüler schlichten",
                     "schlichten",
                     function(){
-                        return Scene::CAFETERIA_0102;
+                        Out::printLn("Herr Schubert gefällt das.");
                     }
                 )
             );

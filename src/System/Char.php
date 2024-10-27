@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Chars;
-
-use App\System\Out;
+namespace App\System;
 
 abstract class Char
 {
     public abstract static function setup(): void;
+
+    public static function run(string $class, string $method): void
+    {
+        if($method)
+            call_user_func([$class,$method]);
+    }
 
     public static function randomize(&$count, $list, &$text): void
     {
