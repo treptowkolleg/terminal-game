@@ -4,16 +4,17 @@ namespace App\Dictionary;
 
 /*
  * Beispiele:
- * Verb     Objekt A        Präposition     Objekt B
+ * Verb         Objekt A        Präposition     Objekt B
  * ----------------------------------------------------
- * sprich                   mit             (Frau) Müller
- * nimm     Schlüssel
- * benutze  Brief           mit             (Herrn) Schubert
- * benutze  Schlüssel       mit             Tür
- * kletter  Baum            nach            oben
- * kletter                  von             Baum
- * kletter                  auf             Baum
- * gehe                     nach            Norden
+ * untersuche   Ort/Gegend
+ * sprich                       mit             (Frau) Müller
+ * nimm         Schlüssel
+ * benutze      Brief           mit             (Herrn) Schubert
+ * benutze      Schlüssel       mit             Tür
+ * kletter      Baum            nach            oben
+ * kletter                      von             Baum
+ * kletter                      auf             Baum
+ * gehe                         nach            Norden
  */
 
 enum VerbDict: string
