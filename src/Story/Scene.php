@@ -2,7 +2,7 @@
 
 namespace App\Story;
 
-use App\GameLoop;
+use App\GameEngine;
 use App\Story\Chapter01\Cafeteria;
 use App\Story\Chapter01\Prolog;
 
@@ -25,8 +25,9 @@ enum Scene
             Scene::EPILOG => Prolog::end(),
             Scene::CAFETERIA_0101 => Cafeteria::sceneA1(),
             Scene::AULA => Cafeteria::aulaA1(),
-            Scene::EXIT => GameLoop::stop()
+            Scene::EXIT => Scene::EXIT
         };
+        if($scene == Scene::EXIT) GameEngine::stop();
     }
 
 }

@@ -2,11 +2,11 @@
 
 namespace App\Chars;
 
-use App\GameLoop;
+use App\GameEngine;
 use App\Story\Scene;
 use App\System\Char;
 use App\System\Out;
-use App\System\SceneAnswer;
+use App\System\SceneObject;
 
 class MsMuller extends Char
 {
@@ -17,7 +17,7 @@ class MsMuller extends Char
 
     public static function setup(): void
     {
-        $method = match(GameLoop::$scene) {
+        $method = match(GameEngine::$scene) {
             Scene::PROLOG => "cafeteria",
             Scene::AULA => "dings",
             default => ""
@@ -40,7 +40,7 @@ class MsMuller extends Char
 
         Out::printLn($text);
 
-        GameLoop::addAnswer(SceneAnswer::make("Einen Kaffee holen","1", function () {
+        GameEngine::addAnswer(SceneObject::make("Einen Kaffee holen","1", function () {
 
             if(count(self::$dingsTexts) != 1) {
                 Out::printLn(array_shift(self::$dingsTexts));
@@ -63,8 +63,8 @@ class MsMuller extends Char
         Char::print(self::$moodText);
 
         if(self::$count == 1) {
-            GameLoop::addAnswer(
-                SceneAnswer::make("Mit Frau Müller sprechen","1", function(){
+            GameEngine::addAnswer(
+                SceneObject::make("Mit Frau Müller sprechen","1", function(){
                     MsMuller::$mood = 25;
                     return Scene::CAFETERIA_0101;
                 })

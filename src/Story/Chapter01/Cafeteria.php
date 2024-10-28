@@ -3,10 +3,10 @@
 namespace App\Story\Chapter01;
 
 
-use App\GameLoop;
+use App\GameEngine;
 use App\Story\Scene;
 use App\System\Out;
-use App\System\SceneAnswer;
+use App\System\SceneObject;
 
 class Cafeteria
 {
@@ -27,16 +27,16 @@ class Cafeteria
 
         Out::printLn($text);
 
-        GameLoop::addAnswer(SceneAnswer::make("Weggehen","1",function (){
+        GameEngine::addAnswer(SceneObject::make("Weggehen","1",function (){
             return Scene::AULA;
         }));
 
-        return GameLoop::checkAnswers();
+        return GameEngine::checkInput();
     }
 
     public static function aulaA1(): Scene
     {
-        return GameLoop::checkAnswers();
+        return GameEngine::checkInput();
     }
 
 }

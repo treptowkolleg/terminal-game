@@ -2,7 +2,7 @@
 
 namespace App\System;
 
-use App\GameLoop;
+use App\GameEngine;
 
 class Out
 {

@@ -5,10 +5,16 @@ namespace App\Story\Chapter01;
 
 use App\Chars\MrSchubert;
 use App\Chars\MsMuller;
-use App\GameLoop;
+use App\Dictionary\PrepDict;
+use App\Dictionary\SubjectDict;
+use App\Dictionary\VerbDict;
+use App\GameEngine;
 use App\Story\Scene;
+use App\System\HotKey;
 use App\System\In;
 use App\System\Out;
+use App\System\SceneObject;
+use App\System\TextColor;
 
 class Prolog
 {
@@ -30,41 +36,40 @@ class Prolog
 
     public static function prolog(): Scene
     {
-        Out::printHeading("Auf Abiwegen am Kolleg");
-        In::readLn("weiter... ");
-
-        // Auch nach Char verschieben?
-
-
-        /*
-         * Nur allgemeine Szenenbeschreibung; alles was Personen betrifft bedingt über die Methoden der jeweiligen
-         * Personen ausgeben. Entweder direkt, oder über ein Kommando (umsehen?).
-         *
-         * Dann sowas wie: GameLoop::addChars(MsMuller, MrSchubert);
-         * Dann: foreach Chars as Char ... bla, bla, bla, ... char::setup();
-         *
-         * Hier würde ich GameLoop.php auch inzwischen in GameEngine.php umbenennen, da Engine hier das bessere
-         * Wort ist. Denn dieses Objekt verwaltet nun sämtliche Szenen und Charaktere. Oder?
-         */
-        $text = <<<TXT
-
-        Du betrittst die Cafeteria des Treptow-Kollegs, wo der Duft von frisch gebackenem
-        Brot und heißen Pommes in der Luft hängt. Die Tische sind gut gefüllt, und du bemerkst,
-        dass einige Schüler über die neuesten Gerüchte austauschen.Hinter der Theke steht
-        Frau Müller, die Köchin, die für ihre schmackhaften, aber manchmal merkwürdigen
-        Gerichte bekannt ist.
-        Plötzlich hörst du einen lauten Streit zwischen einem Schüler und dem Hausmeister,
-        Herrn Schubert, der gerade einen Mülleimer leeren will.
-                
+        GameEngine::$sceneTitle = "Startmenü";
+        GameEngine::$sceneText = <<<TXT
+        Du befindest dich in einem leeren Raum. Nördlich von dir befindet sich eine Tür. Daneben hängt ein Schild an
+        der Wand.
         TXT;
 
-        Out::clearView();
-        Out::printLn($text);
+        $sign = SceneObject::make("Schild","Türschild",function (){
+            $txt = <<<TXT
+            Dies ist der Startraum. Ziel dieses Spiels ist, mit der Schulleitung Kuchen essen zu gehen. Dafür
+            musst Du jedoch einige Hürden meistern. Du kannst dich nach folgendem Muster durch das Spiel navigieren:
+            
+            Verb [Objekt A] [Präposition] [Objekt B]
+            
+            Beispiele:
+            
+            umsehen
+            untersuche Schild
+            gehe nach Norden
+            benutze Schlüssel mit Tür
+            
+            Gib "ende" ein, um das Spiel zu beenden. Beachte, dass du nicht speichern kannst. Jedoch ist das Spiel
+            auch nicht so lang. Viel Glück!
+            TXT;
 
-        MsMuller::setup();
-        MrSchubert::setup();
+            Out::printLn($txt);
+        });
 
-        return GameLoop::checkAnswers();
+        // lies Schild
+        $SignHotKey = new HotKey(VerbDict::READ, b: $sign);
+        $goNorth = new HotKey(VerbDict::GO, preposition: PrepDict::TO, b: SubjectDict::NORTH);
+        GameEngine::addHotKey($SignHotKey);
+        GameEngine::addHotKey($goNorth);
+
+        return GameEngine::checkInput();
     }
 
 }

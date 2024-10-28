@@ -2,11 +2,11 @@
 
 namespace App\Chars;
 
-use App\GameLoop;
+use App\GameEngine;
 use App\Story\Scene;
 use App\System\Char;
 use App\System\Out;
-use App\System\SceneAnswer;
+use App\System\SceneObject;
 
 class MrSchubert extends Char
 {
@@ -14,7 +14,7 @@ class MrSchubert extends Char
 
     public static function setup(): void
     {
-        $method = match(GameLoop::$scene) {
+        $method = match(GameEngine::$scene) {
             Scene::PROLOG => "cafeteria",
             default => ""
         };
@@ -24,8 +24,8 @@ class MrSchubert extends Char
     public static function cafeteria(): void
     {
         if(MsMuller::$count >= 0) {
-            GameLoop::addAnswer(
-                SceneAnswer::make(
+            GameEngine::addAnswer(
+                SceneObject::make(
                     "Den Streit zwischen Herrn Schubert und dem Schüler schlichten",
                     "schlichten",
                     function(){
