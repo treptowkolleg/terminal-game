@@ -128,21 +128,23 @@ class HotKey
 
     public function checkPhrase(array $input): DictState
     {
-        if (count($input) != ($count = $this->getWordCount())) return DictState::FAIL;
-        if (DictState::PASS != $return = $this->checkVerb($input[0])) return $return;
-        if($count == 2) {
-            if (DictState::PASS != $return = $this->checkB($input[1])) return $return;
+        if (count($input) >= ($count = $this->getWordCount())) {
+            if (DictState::PASS != $return = $this->checkVerb($input[0])) return $return;
+            if($count == 2) {
+                if (DictState::PASS != $return = $this->checkB($input[1])) return $return;
+            }
+            if($count == 3) {
+                if (DictState::PASS != $return = $this->checkPreposition($input[1])) return $return;
+                if (DictState::PASS != $return = $this->checkB($input[2])) return $return;
+            }
+            if($count == 4) {
+                if (DictState::PASS != $return = $this->checkA($input[1])) return $return;
+                if (DictState::PASS != $return = $this->checkPreposition($input[2])) return $return;
+                if (DictState::PASS != $return = $this->checkB($input[3])) return $return;
+            }
+            return DictState::PASS;
         }
-        if($count == 3) {
-            if (DictState::PASS != $return = $this->checkPreposition($input[1])) return $return;
-            if (DictState::PASS != $return = $this->checkB($input[2])) return $return;
-        }
-        if($count == 4) {
-            if (DictState::PASS != $return = $this->checkA($input[1])) return $return;
-            if (DictState::PASS != $return = $this->checkPreposition($input[2])) return $return;
-            if (DictState::PASS != $return = $this->checkB($input[3])) return $return;
-        }
-        return DictState::PASS;
+        return DictState::MISSING_PARAMETER;
     }
 
     public function getCallback(): Closure

@@ -96,9 +96,10 @@ class GameEngine
         while(true) {
             Out::printLn("");
             $input =  explode(" ", In::readLn());
+            $state = null;
             foreach (self::$hotKeys as $hotKey) {
                 if($hotKey instanceof HotKey) {
-                    if(DictState::PASS == $hotKey->checkPhrase($input)) {
+                    if(DictState::PASS == $state = $hotKey->checkPhrase($input)) {
                         if($hotKey->hasA()) call_user_func($hotKey->getA()->getCallback());
                         if($hotKey->hasB()) call_user_func($hotKey->getB()->getCallback());
                         $return = call_user_func($hotKey->getCallback());
@@ -107,6 +108,11 @@ class GameEngine
                     }
                 }
             }
+            if($state == DictState::UNKNOWN_VERB) Out::printLn("Das Verb kenne ich leider nicht.");
+            if($state == DictState::WRONG_VERB) Out::printLn("Das Verb kenne ich, bringt hier aber nichts.");
+            if($state == DictState::WRONG_B) Out::printLn("Das Objekt gibt es hier nicht.");
+            if($state == DictState::UNKNOWN_B) Out::printLn("Das Objekt kenne ich nicht.");
+            if($state == DictState::MISSING_PARAMETER) Out::printLn("Das ergibt hier für mich keinen Sinn.");
             if($input == "exit") return Scene::EXIT;
         }
     }
