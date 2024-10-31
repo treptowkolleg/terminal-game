@@ -68,7 +68,7 @@ class HotKey
             if($this->a !== $a) return DictState::WRONG_A;
         }
         if($this->a instanceof SceneObject) {
-            if($this->a != $a = strtolower($input)) return DictState::WRONG_A;
+            if($this->a != strtolower($input)) return DictState::WRONG_A;
         }
         return DictState::PASS;
     }
@@ -128,8 +128,8 @@ class HotKey
 
     public function checkPhrase(array $input): DictState
     {
-        if (count($input) >= ($count = $this->getWordCount())) {
-            if (DictState::PASS != $return = $this->checkVerb($input[0])) return $return;
+        if (DictState::PASS != $return = $this->checkVerb($input[0])) return $return;
+        if (count($input) == ($count = $this->getWordCount())) {
             if($count == 2) {
                 if (DictState::PASS != $return = $this->checkB($input[1])) return $return;
             }
@@ -150,6 +150,13 @@ class HotKey
     public function getCallback(): Closure
     {
         return $this->callback;
+    }
+
+    public function runAction()
+    {
+        if($this->a instanceof SceneObject) call_user_func($this->a->getCallback(),self::getVerb());
+        if($this->b instanceof SceneObject) call_user_func($this->b->getCallback(),self::getVerb());
+        return call_user_func($this->getCallback());
     }
 
 }

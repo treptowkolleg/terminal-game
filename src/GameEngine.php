@@ -8,6 +8,7 @@ use App\Dictionary\SubjectDict;
 use App\Dictionary\VerbDict;
 use App\Story\Scene;
 use App\System\HotKey;
+use App\System\HotKeySet;
 use App\System\In;
 use App\System\Out;
 use App\System\SceneObject;
@@ -20,6 +21,10 @@ class GameEngine
     public static string $sceneTitle = "";
     public static string $sceneText = "";
     public static array $answers = [];
+
+    /**
+     * @var array<HotKeySet>
+     */
     public static array $hotKeys = [];
 
     public function __construct()
@@ -52,15 +57,18 @@ class GameEngine
 
     public static function resetHotKeys(): void
     {
-        self::$hotKeys = [
-            new HotKey(VerbDict::VIEW,callback: function (){
+        $view = new HotKeySet();
+        $view->addKey(VerbDict::VIEW,callback: function (){
             Out::printLn(self::$sceneTitle,TextColor::green);
             Out::printLn(self::$sceneText);
-            }),
-            new HotKey(VerbDict::EXIT,callback: function (){
-                GameEngine::stop();
-            })
-        ];
+        });
+
+        $exit = new HotKeySet();
+        $exit->addKey(VerbDict::EXIT,callback: function (){
+            GameEngine::stop();
+        });
+
+        self::$hotKeys = [$view, $exit];
     }
 
     public static function addAnswer(SceneObject $answer): void
@@ -68,7 +76,7 @@ class GameEngine
         self::$answers[] = $answer;
     }
 
-    public static function addHotKey(HotKey $hotKey): void
+    public static function addHotKey(HotKeySet $hotKey): void
     {
         self::$hotKeys[] = $hotKey;
     }
@@ -96,23 +104,24 @@ class GameEngine
         while(true) {
             Out::printLn("");
             $input =  explode(" ", In::readLn());
-            $state = null;
-            foreach (self::$hotKeys as $hotKey) {
-                if($hotKey instanceof HotKey) {
-                    if(DictState::PASS == $state = $hotKey->checkPhrase($input)) {
-                        if($hotKey->hasA()) call_user_func($hotKey->getA()->getCallback());
-                        if($hotKey->hasB()) call_user_func($hotKey->getB()->getCallback());
-                        $return = call_user_func($hotKey->getCallback());
-                        if($return instanceof Scene) return $return;
-                        break;
+            $state = DictState::NOMATCH;
+            $newState = null;
+            foreach (self::$hotKeys as $hotKeySet) {
+                foreach ($hotKeySet->getKeys() as $hotKey) {
+                    if($hotKey instanceof HotKey) {
+                        if(DictState::PASS == $state = $hotKey->checkPhrase($input)) {
+                            $return = $hotKey->runAction();
+                            if($return instanceof Scene) return $return;
+                            break 2;
+                        }
                     }
                 }
             }
             if($state == DictState::UNKNOWN_VERB) Out::printLn("Das Verb kenne ich leider nicht.");
-            if($state == DictState::WRONG_VERB) Out::printLn("Das Verb kenne ich, bringt hier aber nichts.");
-            if($state == DictState::WRONG_B) Out::printLn("Das Objekt gibt es hier nicht.");
-            if($state == DictState::UNKNOWN_B) Out::printLn("Das Objekt kenne ich nicht.");
-            if($state == DictState::MISSING_PARAMETER) Out::printLn("Das ergibt hier für mich keinen Sinn.");
+            if($state == DictState::WRONG_VERB) Out::printLn("Das Verb kenne ich, funktioniert so aber nicht.");
+            if($state == DictState::UNKNOWN_B || $state == DictState::WRONG_B) Out::printLn("Das Objekt ergibt hier keinen Sinn.");
+            if($state == DictState::MISSING_PARAMETER) Out::printLn("Mir fehlt etwas mehr Kontext.");
+            if($state == DictState::FAIL) Out::printLn("Da hat ja mal gar nichts gepasst!");
             if($input == "exit") return Scene::EXIT;
         }
     }

@@ -11,6 +11,7 @@ use App\Dictionary\VerbDict;
 use App\GameEngine;
 use App\Story\Scene;
 use App\System\HotKey;
+use App\System\HotKeySet;
 use App\System\In;
 use App\System\Out;
 use App\System\SceneObject;
@@ -42,7 +43,7 @@ class Prolog
         der Wand.
         TXT;
 
-        $sign = SceneObject::make("Schild","Türschild",function (){
+        $sign = SceneObject::make("Schild","Türschild",function (VerbDict $verb){
             $txt = <<<TXT
             Dies ist der Startraum. Ziel dieses Spiels ist, mit der Schulleitung Kuchen essen zu gehen. Dafür
             musst Du jedoch einige Hürden meistern. Du kannst dich nach folgendem Muster durch das Spiel navigieren:
@@ -60,14 +61,23 @@ class Prolog
             auch nicht so lang. Viel Glück!
             TXT;
 
-            Out::printLn($txt);
+            if($verb == VerbDict::READ)
+                Out::printLn($txt);
+            if ($verb == VerbDict::LOOK)
+                Out::printLn("Das Schild scheint eine Anleitung zu beinhalten.");
+            if($verb == VerbDict::TAKE)
+                Out::printLn("Das Schild ist festgeschraubt. Du kannst es nicht mitnehmen.");
         });
 
         // lies Schild
-        $SignHotKey = new HotKey(VerbDict::READ, b: $sign);
-        $goNorth = new HotKey(VerbDict::GO, preposition: PrepDict::TO, b: SubjectDict::NORTH);
-        GameEngine::addHotKey($SignHotKey);
-        GameEngine::addHotKey($goNorth);
+        $signSet = new HotKeySet($sign);
+        $signSet
+            ->addKey(VerbDict::READ)
+            ->addKey(VerbDict::LOOK)
+            ->addKey(VerbDict::TAKE)
+        ;
+
+        GameEngine::addHotKey($signSet);
 
         return GameEngine::checkInput();
     }

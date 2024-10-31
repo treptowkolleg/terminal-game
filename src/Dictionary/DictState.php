@@ -16,5 +16,6 @@ enum DictState
     case WRONG_PREP;
     case UNKNOWN_PREP;
     case MISSING_PARAMETER;
+    case NOMATCH;
 
 }
