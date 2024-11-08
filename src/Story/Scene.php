@@ -3,7 +3,6 @@
 namespace App\Story;
 
 use App\GameEngine;
-use App\Story\Chapter01\Prolog;
 use App\Story\Location\Bakery;
 use App\Story\Location\Crossing;
 use App\Story\Location\Pharmacy;

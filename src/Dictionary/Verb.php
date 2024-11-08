@@ -17,7 +17,7 @@ namespace App\Dictionary;
  * gehe                         nach            Norden
  */
 
-enum VerbDict: string
+enum Verb: string
 {
     case TALK = "sprich";
     case TAKE = "nimm";
@@ -28,6 +28,8 @@ enum VerbDict: string
     case READ = "lies";
     case LOOK = "untersuche";
     case CLIMB = "kletter";
+    case EAT = "iss";
+    case DRINK = "trinke";
     case VIEW = "umsehen";
     case EXIT = "ende";
 

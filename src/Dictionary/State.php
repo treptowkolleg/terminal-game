@@ -2,7 +2,7 @@
 
 namespace App\Dictionary;
 
-enum DictState
+enum State
 {
 
     case PASS;

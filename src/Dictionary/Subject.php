@@ -2,7 +2,7 @@
 
 namespace App\Dictionary;
 
-enum SubjectDict: string
+enum Subject: string
 {
     case NORTH = "norden";
     case EAST = "osten";
@@ -10,5 +10,8 @@ enum SubjectDict: string
     case WEST = "westen";
     case UP = "oben";
     case DOWN = "unten";
+
+    case KEY = "schlüssel";
+    case INVENTAR = "inventar";
 
 }

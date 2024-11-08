@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Story\Chapter01;
+namespace App\Story;
 
 
 use App\GameEngine;
-use App\Objects\PrologDoor;
-use App\Objects\PrologSign;
-use App\Story\Scene;
-
+use App\Story\Objects\PrologDoor;
+use App\Story\Objects\PrologSign;
 
 class Prolog
 {
-
     public static function prolog(): Scene
     {
         GameEngine::$sceneTitle = "Startmenü";
@@ -20,9 +17,15 @@ class Prolog
         der Wand.
         TXT;
 
+        GameEngine::resetHotKeys();
         GameEngine::addHotKey(PrologSign::get());
         GameEngine::addHotKey(PrologDoor::get());
 
+        return GameEngine::checkInput();
+    }
+
+    public static function end(): Scene
+    {
         return GameEngine::checkInput();
     }
 

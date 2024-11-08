@@ -2,30 +2,30 @@
 
 namespace App\System;
 
-use App\Dictionary\DictState;
-use App\Dictionary\PrepDict;
-use App\Dictionary\SubjectDict;
-use App\Dictionary\VerbDict;
+use App\Dictionary\State;
+use App\Dictionary\Preposition;
+use App\Dictionary\Subject;
+use App\Dictionary\Verb;
 use Closure;
 
 class HotKey
 {
 
-    private VerbDict $verb;
-    private SceneObject|SubjectDict|null $a;
-    private PrepDict|null $preposition;
-    private SceneObject|SubjectDict|null $b;
+    private Verb $verb;
+    private SceneObject|Subject|null $a;
+    private Preposition|null $preposition;
+    private SceneObject|Subject|null $b;
 
     private Closure $callback;
 
     /**
-     * @param VerbDict $verb
-     * @param SceneObject|SubjectDict|null $a
-     * @param PrepDict|null $preposition
-     * @param SceneObject|SubjectDict|null $b
+     * @param Verb $verb
+     * @param SceneObject|Subject|null $a
+     * @param Preposition|null $preposition
+     * @param SceneObject|Subject|null $b
      * @param Closure|null $callback
      */
-    public function __construct(VerbDict $verb, SceneObject|SubjectDict|null $a = null, PrepDict|null $preposition = null, SceneObject|SubjectDict|null $b = null, ?Closure $callback = null)
+    public function __construct(Verb $verb, SceneObject|Subject|null $a = null, Preposition|null $preposition = null, SceneObject|Subject|null $b = null, ?Closure $callback = null)
     {
         $this->verb = $verb;
         $this->a = $a;
@@ -44,16 +44,16 @@ class HotKey
         return strtolower("{$this->getVerb()?->value} {$this->getA()} {$this->getPreposition()?->value} {$this->getB()}");
     }
 
-    public function getVerb(): VerbDict
+    public function getVerb(): Verb
     {
         return $this->verb;
     }
 
-    public function checkVerb(string $input): DictState
+    public function checkVerb(string $input): State
     {
-        if(!$verb = VerbDict::tryFrom(strtolower($input))) return DictState::UNKNOWN_VERB;
-        if($verb != $this->verb) return DictState::WRONG_VERB;
-        return DictState::PASS;
+        if(!$verb = Verb::tryFrom(strtolower($input))) return State::UNKNOWN_VERB;
+        if($verb != $this->verb) return State::WRONG_VERB;
+        return State::PASS;
     }
 
     public function hasA(): bool
@@ -61,33 +61,33 @@ class HotKey
         return (bool)$this->a;
     }
 
-    public function checkA(string $input): DictState
+    public function checkA(string $input): State
     {
-        if($this->a instanceof SubjectDict) {
-            if(!$a = SubjectDict::tryFrom(strtolower($input))) return DictState::UNKNOWN_A;
-            if($this->a !== $a) return DictState::WRONG_A;
+        if($this->a instanceof Subject) {
+            if(!$a = Subject::tryFrom(strtolower($input))) return State::UNKNOWN_A;
+            if($this->a !== $a) return State::FAIL;
         }
         if($this->a instanceof SceneObject) {
-            if($this->a != strtolower($input)) return DictState::WRONG_A;
+            if($this->a != strtolower($input)) return State::FAIL;
         }
-        return DictState::PASS;
+        return State::PASS;
     }
 
-    public function getA(): ?SceneObject
+    public function getA(): SceneObject|Subject|null
     {
         return $this->a;
     }
 
-    public function getPreposition(): ?PrepDict
+    public function getPreposition(): ?Preposition
     {
         return $this->preposition;
     }
 
-    public function checkPreposition(string $input): DictState
+    public function checkPreposition(string $input): State
     {
-        if(!$prep = PrepDict::tryFrom(strtolower($input))) return DictState::UNKNOWN_PREP;
-        if($prep != $this->preposition) return DictState::WRONG_PREP;
-        return DictState::PASS;
+        if(!$prep = Preposition::tryFrom(strtolower($input))) return State::UNKNOWN_PREP;
+        if($prep != $this->preposition) return State::WRONG_PREP;
+        return State::PASS;
     }
 
     public function hasPreposition(): bool
@@ -95,21 +95,21 @@ class HotKey
         return (bool)$this->preposition;
     }
 
-    public function getB(): SceneObject|SubjectDict|null
+    public function getB(): SceneObject|Subject|null
     {
         return $this->b;
     }
 
-    public function checkB(string $input): DictState
+    public function checkB(string $input): State
     {
-        if($this->b instanceof SubjectDict) {
-            if(!$b = SubjectDict::tryFrom(strtolower($input))) return DictState::UNKNOWN_B;
-            if($this->b !== $b) return DictState::WRONG_B;
+        if($this->b instanceof Subject) {
+            if(!$b = Subject::tryFrom(strtolower($input))) return State::UNKNOWN_B;
+            if($this->b !== $b) return State::WRONG_B;
         }
         if($this->b instanceof SceneObject) {
-            if($this->b != $b = strtolower($input)) return DictState::WRONG_B;
+            if($this->b != strtolower($input)) return State::WRONG_B;
         }
-        return DictState::PASS;
+        return State::PASS;
     }
 
     public function hasB(): bool
@@ -126,25 +126,25 @@ class HotKey
         return $i;
     }
 
-    public function checkPhrase(array $input): DictState
+    public function checkPhrase(array $input): State
     {
-        if (DictState::PASS != $return = $this->checkVerb($input[0])) return $return;
+        if (State::PASS != $return = $this->checkVerb($input[0])) return $return;
         if (count($input) == ($count = $this->getWordCount())) {
             if($count == 2) {
-                if (DictState::PASS != $return = $this->checkB($input[1])) return $return;
+                if (State::PASS != $return = $this->checkB($input[1])) return $return;
             }
             if($count == 3) {
-                if (DictState::PASS != $return = $this->checkPreposition($input[1])) return $return;
-                if (DictState::PASS != $return = $this->checkB($input[2])) return $return;
+                if (State::PASS != $return = $this->checkPreposition($input[1])) return $return;
+                if (State::PASS != $return = $this->checkB($input[2])) return $return;
             }
             if($count == 4) {
-                if (DictState::PASS != $return = $this->checkA($input[1])) return $return;
-                if (DictState::PASS != $return = $this->checkPreposition($input[2])) return $return;
-                if (DictState::PASS != $return = $this->checkB($input[3])) return $return;
+                if (State::PASS != $return = $this->checkA($input[1])) return $return;
+                if (State::PASS != $return = $this->checkPreposition($input[2])) return $return;
+                if (State::PASS != $return = $this->checkB($input[3])) return $return;
             }
-            return DictState::PASS;
+            return State::PASS;
         }
-        return DictState::MISSING_PARAMETER;
+        return State::MISSING_PARAMETER;
     }
 
     public function getCallback(): Closure
@@ -155,7 +155,7 @@ class HotKey
     public function runAction()
     {
         if($this->a instanceof SceneObject) call_user_func($this->a->getCallback(),self::getVerb());
-        if($this->b instanceof SceneObject) call_user_func($this->b->getCallback(),self::getVerb());
+        if($this->b instanceof SceneObject) call_user_func($this->b->getCallback(),self::getVerb(), self::getA(), self::getPreposition());
         return call_user_func($this->getCallback());
     }
 
