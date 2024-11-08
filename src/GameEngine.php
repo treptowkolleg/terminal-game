@@ -102,6 +102,7 @@ class GameEngine
         Out::printLn(self::$sceneTitle,TextColor::green);
         Out::printLn(self::$sceneText);
         while(true) {
+
             Out::printLn("");
             $input =  explode(" ", In::readLn());
             $state = DictState::NOMATCH;

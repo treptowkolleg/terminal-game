@@ -17,7 +17,11 @@ class TrainStation
     public static function platform(): Scene
     {
         GameEngine::$sceneTitle = "S-Bhf Baumschulenweg - Bahnsteig";
-        return Scene::EXIT;
+        GameEngine::$sceneText = <<<TXT
+        Du befindest dich auf dem Bahnsteig. Wegen einer Störung fahren gerade keine Züge.
+        Eine Treppe führt nach unten zum Eingang des Bahnhofs.
+        TXT;
+        return GameEngine::checkInput();
     }
 
 }

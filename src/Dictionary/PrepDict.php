@@ -8,5 +8,6 @@ enum PrepDict: string
     case TO = "nach";
     case OF = "von";
     case ON = "auf";
+    case THRU = "durch";
 
 }

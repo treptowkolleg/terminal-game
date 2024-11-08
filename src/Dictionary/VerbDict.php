@@ -22,6 +22,8 @@ enum VerbDict: string
     case TALK = "sprich";
     case TAKE = "nimm";
     case GO = "gehe";
+    case OPEN = "öffne";
+    case CLOSE = "schließe";
     case USE = "benutze";
     case READ = "lies";
     case LOOK = "untersuche";
