@@ -2,6 +2,7 @@
 
 namespace App\Story\Location\School;
 
+use App\GameEngine;
 use App\Story\Scene;
 
 class SchoolOffice
@@ -9,6 +10,7 @@ class SchoolOffice
 
     public static function interior(): Scene
     {
+        GameEngine::$sceneTitle = "Büro - Schulleitung";
         return Scene::EXIT;
     }
 
