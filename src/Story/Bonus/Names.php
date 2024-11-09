@@ -16,7 +16,7 @@ class Names
                     $txt = call_user_func("self::$method",$name);
                     Out::clearView();
                     Out::printLn("$txt\n");
-                    In::readLn("Drücke Enter, um fortzufahren ... ");
+                    In::readLn("Enter drücken, um fortzufahren ... ");
                     break 2;
                 }
             }
