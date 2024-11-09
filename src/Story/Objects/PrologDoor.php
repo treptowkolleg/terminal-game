@@ -28,7 +28,7 @@ class PrologDoor
 
             $response = match ($verb) {
                 Verb::LOOK => $text,
-                Verb::TAKE => "Du kannst die Tür nicht mitnehmen.",
+                Verb::TAKE => "Was hat dir die Tür eigentlich getan? Schäm' dich, $player!",
                 Verb::USE => "Die Tür fühlt sich jetzt ein wenig benutzt.",
                 Verb::EAT => "$player, das solltest du wirklich nicht tun.",
                 default => "Das ergibt hier überhaupt keinen Sinn.",
