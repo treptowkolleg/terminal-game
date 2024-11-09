@@ -142,7 +142,7 @@ class Names
         Mit einem freundlichen, aber entschlossenen Auftreten sorgst du dafür, dass jeder seinen Platz und seine Aufgabe
         kennt – und wer das vergisst, bekommt es mit einem charmant befehlsartigen „Das machen wir jetzt so“ zu spüren.
 
-        Du wärst der perfekt karikierte General: Aufrecht, mit einem wachsamen Blick, der keine Ungereimtheit
+        Du wärst der perfekt karikierte General: Aufrecht und mit einem wachsamen Blick, der keine Ungereimtheit
         übersieht, aber stets einfühlsam, wenn es darauf ankommt. Deine Stärke liegt darin, das Menschliche nicht aus
         den Augen zu verlieren, auch wenn es darauf ankommt, klare Ansagen zu machen. Man schätzt dich dafür, dass du
         deine Umgebung kompetent und empathisch durch den Alltag führst – und auch dafür, dass niemand so elegant und
