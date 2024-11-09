@@ -6,6 +6,7 @@ namespace App\Story;
 use App\GameEngine;
 use App\Story\Objects\PrologDoor;
 use App\Story\Objects\PrologSign;
+use App\System\Out;
 
 class Prolog
 {
@@ -13,8 +14,7 @@ class Prolog
     {
         GameEngine::$sceneTitle = "Startmenü";
         GameEngine::$sceneText = <<<TXT
-        Du befindest dich in einem leeren Raum. Nördlich von dir befindet sich eine Tür. Daneben hängt ein Schild an
-        der Wand.
+        Du befindest dich in einem leeren Raum. Lediglich eine Tür und ein daneben hängendes Schild sind zu sehen.
         TXT;
 
         GameEngine::resetHotKeys();

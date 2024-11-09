@@ -18,6 +18,7 @@ use App\System\TextColor;
 class GameEngine
 {
 
+    public static string $player;
     public static Scene $scene = Scene::PROLOG;
     public static string $sceneTitle = "";
     public static string $sceneText = "";
@@ -44,6 +45,7 @@ class GameEngine
     public function start(): void
     {
         Out::clearView();
+        $this->intro();
         while(true) {
             Scene::match(self::$scene);
         }
@@ -52,6 +54,29 @@ class GameEngine
     public static function stop(): void
     {
         exit(0);
+    }
+
+    public function intro(): void
+    {
+        date_default_timezone_set("Europe/Berlin");
+        $hour = date("H");
+
+        $wording = match (true) {
+            $hour > 6 && $hour < 8 => "Es ist ziemlich früh. Du bist gestern wohl ziemlich früh ins Bett gegangen, oder?",
+            $hour >= 8 && $hour < 12 => "Solltest du um diese Zeit nicht normalerweise arbeiten?",
+            $hour >= 12 && $hour < 13 => "Eigentlich wäre es besser, wenn du in die Mittagspause gehst.",
+            $hour <= 6 || $hour >= 23 => "Es ist mitten in der Nacht. Andere Leute schlafen für gewöhnlich um diese Zeit.\nNa gut, jetzt bin ich sowieso wach. Dann lass uns eine Runde zocken.",
+            default => "Eine gute Zeit zum Zocken, oder?"
+        };
+        Out::clearView();
+        Out::printLn("$wording\n", TextColor::cyan);
+        In::readLn("Enter drücken, um fortzufahren ...");
+        Out::clearView();
+        $input = explode(" ", In::readLn("Wie heißt du eigentlich? "));
+        foreach ($input as &$word) {
+            $word = ucfirst($word);
+        }
+        self::$player = implode(" ", $input);
     }
 
     public static function resetHotKeys(): void

@@ -24,11 +24,13 @@ class PrologDoor
             Diese Tür macht einen recht unscheinbaren Eindruck.
             TXT;
 
+            $player = GameEngine::$player;
+
             $response = match ($verb) {
                 Verb::LOOK => $text,
                 Verb::TAKE => "Du kannst die Tür nicht mitnehmen.",
                 Verb::USE => "Die Tür fühlt sich jetzt ein wenig benutzt.",
-                Verb::EAT => "Das solltest du wirklich nicht tun.",
+                Verb::EAT => "$player, das solltest du wirklich nicht tun.",
                 default => "Das ergibt hier überhaupt keinen Sinn.",
             };
 

@@ -37,7 +37,7 @@ class PrologSign
             TXT;
 
             if($verb == Verb::EAT)
-                Out::printLn("Das Schild ist stärker als deine Zähne.");
+                Out::printLn("Daf Fild ift ftärker alf deine Fähne.");
 
             if($verb == Verb::READ)
                 Out::printLn($txt);
