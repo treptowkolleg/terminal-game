@@ -33,6 +33,7 @@ class Names
             "einstein" => ["einstein", "albert"],
             "haase" => ["haase", "bianka"],
             "tanzer" => ["tanzer", "holger"],
+            "seike" => ["antje", "seike"],
         ];
     }
 
@@ -125,6 +126,27 @@ class Names
         einfach nur auf Smalltalk aus waren. Doch die, die sich darauf einlassen, schätzen deinen Witz und deinen
         spöttischen Charme. Für sie bist du kein einfacher Gesprächspartner, sondern eine wahre Institution, immer für
         ein rhetorisches Tänzchen gut – ein $name eben.
+        TXT;
+
+    }
+
+    private static function seike(string $name): string
+    {
+        $anrede = $name;
+        if($name == "Seike") $anrede = GameEngine::$player = "Antje";
+
+        return <<<TXT
+        Ah, du hast den Namen $name gewählt – ein Name, der schon klingt, als könnte er einen ganzen Betrieb mit einem
+        Fingerschnippen organisieren. Als Meisterin der Planung und Organisation verstehst du es, Ordnung zu schaffen,
+        wo andere nur Chaos sehen. Du hast den Blick fürs Ganze und lässt dich nicht von Kleinigkeiten ablenken.
+        Mit einem freundlichen, aber entschlossenen Auftreten sorgst du dafür, dass jeder seinen Platz und seine Aufgabe
+        kennt – und wer das vergisst, bekommt es mit einem charmant befehlsartigen „Das machen wir jetzt so“ zu spüren.
+
+        Du wärst der perfekt karikierte General: Aufrecht, mit einem wachsamen Blick, der keine Ungereimtheit
+        übersieht, aber stets einfühlsam, wenn es darauf ankommt. Deine Stärke liegt darin, das Menschliche nicht aus
+        den Augen zu verlieren, auch wenn es darauf ankommt, klare Ansagen zu machen. Man schätzt dich dafür, dass du
+        deine Umgebung kompetent und empathisch durch den Alltag führst – und auch dafür, dass niemand so elegant und
+        sympathisch für Ordnung sorgen kann wie $anrede.
         TXT;
 
     }
