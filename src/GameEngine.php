@@ -6,6 +6,7 @@ use App\Dictionary\Preposition;
 use App\Dictionary\State;
 use App\Dictionary\Subject;
 use App\Dictionary\Verb;
+use App\Story\Bonus\Names;
 use App\Story\Items\HomeKey;
 use App\Story\Scene;
 use App\System\HotKey;
@@ -69,7 +70,7 @@ class GameEngine
             default => "Eine gute Zeit zum Zocken, oder?"
         };
         Out::clearView();
-        Out::printLn("$wording\n", TextColor::cyan);
+        Out::printLn("$wording\n");
         In::readLn("Enter drücken, um fortzufahren ...");
         Out::clearView();
         $input = explode(" ", In::readLn("Wie heißt du eigentlich? "));
@@ -77,6 +78,7 @@ class GameEngine
             $word = ucfirst($word);
         }
         self::$player = implode(" ", $input);
+        Names::match(self::$player);
     }
 
     public static function resetHotKeys(): void
