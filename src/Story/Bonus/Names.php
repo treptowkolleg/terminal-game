@@ -32,6 +32,7 @@ class Names
             "newton" => ["newton", "isaac"],
             "einstein" => ["einstein", "albert"],
             "haase" => ["haase", "bianka"],
+            "tanzer" => ["tanzer", "holger"],
         ];
     }
 
@@ -108,6 +109,24 @@ class Names
         eine Matrix elegant zerlegen. Und das Beste? Dein freundliches Wesen lässt selbst den unlösbarsten Satz
         freundlich aussehen. Also, $anrede – viel Erfolg mit deinem Bildungsspagat!
         TXT;
+    }
+
+    private static function tanzer(string $name): string
+    {
+        return <<<TXT
+        Ah, du hast also den Namen $name gewählt – ein Name, der irgendwie sofort nach feinsinnigem Zynismus und
+        Wortwitz klingt. Gebildet bis zur Perfektion und mit einem Hang zu schwarzem Humor, der trockener ist als jede
+        Wüste, genießt du es sichtlich, dein Gegenüber ein wenig aus der Fassung zu bringen. Du hast die wunderbare
+        Gabe, mit ein paar gezielten Worten eine Frage in den Raum zu stellen, die weniger zur Antwort und mehr zur
+        Verlegenheit führt – und beobachtest dann genüsslich, wie sich der Gesprächspartner windet.
+
+        Deine Ironie ist scharf wie ein Rasiermesser und nicht immer leicht zu schlucken. Manche fühlen sich von deinem
+        Humor ertappt, als hätten sie ungewollt an einer intellektuellen Sparring-Runde teilgenommen, während sie
+        einfach nur auf Smalltalk aus waren. Doch die, die sich darauf einlassen, schätzen deinen Witz und deinen
+        spöttischen Charme. Für sie bist du kein einfacher Gesprächspartner, sondern eine wahre Institution, immer für
+        ein rhetorisches Tänzchen gut – ein $name eben.
+        TXT;
+
     }
 
 }
