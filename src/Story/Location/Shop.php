@@ -10,7 +10,6 @@ class Shop
 
     public static function interior(): Scene
     {
-        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Späti - Innen";
         return GameEngine::checkInput();
     }

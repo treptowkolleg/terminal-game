@@ -152,6 +152,9 @@ class GameEngine
                         if(State::PASS == $state = $hotKey->checkPhrase($input)) {
                             $return = $hotKey->runAction();
                             if($return instanceof Scene) {
+                                Out::printLn("Szenenwechsel",TextColor::lightGreen);
+                                GameEngine::resetHotKeys();
+                                sleep(1);
                                 return $return;
                             }
                             break 2;

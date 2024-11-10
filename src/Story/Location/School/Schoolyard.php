@@ -10,14 +10,12 @@ class Schoolyard
 
     public static function north(): Scene
     {
-        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Hinterer Schulhof";
         return GameEngine::checkInput();
     }
 
     public static function south(): Scene
     {
-        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Vorderer Schulhof";
         return GameEngine::checkInput();
     }

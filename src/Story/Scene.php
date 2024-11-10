@@ -21,6 +21,7 @@ use App\Story\Location\School\Shed;
 use App\Story\Location\Shop;
 use App\Story\Location\Street;
 use App\Story\Location\TrainStation;
+use App\System\Out;
 
 enum Scene
 {

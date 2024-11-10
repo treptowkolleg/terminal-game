@@ -16,7 +16,6 @@ class Prolog
         Du befindest dich in einem leeren Raum. Lediglich eine Tür und ein daneben hängendes Schild sind zu sehen.
         TXT;
 
-        GameEngine::resetHotKeys();
         PrologSign::init();
         PrologDoor::init();
 
@@ -25,7 +24,6 @@ class Prolog
 
     public static function end(): Scene
     {
-        GameEngine::resetHotKeys();
         return GameEngine::checkInput();
     }
 

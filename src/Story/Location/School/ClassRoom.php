@@ -10,7 +10,6 @@ class ClassRoom
 
     public static function interior(): Scene
     {
-        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Klassenraum";
         return GameEngine::checkInput();
     }

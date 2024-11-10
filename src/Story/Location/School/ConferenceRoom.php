@@ -10,7 +10,6 @@ class ConferenceRoom
 
     public static function interior(): Scene
     {
-        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Konferenzraum";
         return GameEngine::checkInput();
     }

@@ -10,7 +10,6 @@ class Entrance
 
     public static function interior(): Scene
     {
-        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Eingangshalle";
         return GameEngine::checkInput();
     }

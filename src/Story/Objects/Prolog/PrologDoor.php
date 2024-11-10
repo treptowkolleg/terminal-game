@@ -6,7 +6,7 @@ use App\Dictionary\Preposition;
 use App\Dictionary\Verb;
 use App\GameEngine;
 use App\Story\Items\HomeKey;
-use App\Story\Location\TrainStation;
+use App\Story\Scene;
 use App\System\HotKeySet;
 use App\System\Out;
 use App\System\SceneObject;
@@ -45,7 +45,7 @@ class PrologDoor
             }
 
             if(self::$open){
-                if($verb == Verb::GO) return TrainStation::platform();
+                if($verb == Verb::GO) return Scene::TRAIN_STATION_PLATFORM;
                 if($verb == Verb::OPEN) $response = "Die Tür ist doch schon offen.";
                 if($verb == Verb::CLOSE) {
                     $response = "Du hast die Tür geschlossen.";

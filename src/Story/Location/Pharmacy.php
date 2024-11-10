@@ -10,7 +10,6 @@ class Pharmacy
 
     public static function interior(): Scene
     {
-        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Apotheke - Innen";
         return GameEngine::checkInput();
     }

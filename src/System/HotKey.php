@@ -6,6 +6,7 @@ use App\Dictionary\State;
 use App\Dictionary\Preposition;
 use App\Dictionary\Subject;
 use App\Dictionary\Verb;
+use App\Story\Scene;
 use Closure;
 
 class HotKey
@@ -152,10 +153,11 @@ class HotKey
         return $this->callback;
     }
 
-    public function runAction()
+    public function runAction(): mixed
     {
-        if($this->a instanceof SceneObject) call_user_func($this->a->getCallback(),self::getVerb());
-        if($this->b instanceof SceneObject) call_user_func($this->b->getCallback(),self::getVerb(), self::getA(), self::getPreposition());
+        $return = false;
+        if($this->b instanceof SceneObject) $return = call_user_func($this->b->getCallback(),self::getVerb(), self::getA(), self::getPreposition());
+        if($return instanceof Scene) return $return;
         return call_user_func($this->getCallback());
     }
 
