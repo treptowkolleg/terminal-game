@@ -40,6 +40,7 @@ class GameEngine
 
     public function __destruct()
     {
+        Out::clearView();
         Out::printHeading("Das Spiel wurde beendet!");
     }
 
