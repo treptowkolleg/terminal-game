@@ -10,20 +10,23 @@ class SchoolGarden
 
     public static function north(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Schulgarten - Beet";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
     public static function south(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Schulgarten - Eingangsbereich";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
     public static function east(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Schulgarten - Weg zum Schuppen";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
 }

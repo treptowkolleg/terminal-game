@@ -10,8 +10,9 @@ class Cafeteria
 
     public static function interior(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Cafeteria";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
 }

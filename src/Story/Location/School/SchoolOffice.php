@@ -10,8 +10,9 @@ class SchoolOffice
 
     public static function interior(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Büro - Schulleitung";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
 }

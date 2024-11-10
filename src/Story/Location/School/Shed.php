@@ -10,14 +10,16 @@ class Shed
 
     public static function interior(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Schuppen - Innen";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
     public static function exterior(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Vor dem Schuppen";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
 }

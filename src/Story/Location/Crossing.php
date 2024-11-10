@@ -10,20 +10,23 @@ class Crossing
 
     public static function one(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Kreuzung Kiefholzstr./Mosischstr.";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
     public static function two(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Kreuzung Kiefholzstr./Baumschulenstr.";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
     public static function three(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Kreuzung Baumschulenstr./Mosischstr..";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
 }

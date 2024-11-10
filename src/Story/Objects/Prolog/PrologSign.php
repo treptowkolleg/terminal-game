@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Story\Objects;
+namespace App\Story\Objects\Prolog;
 
 use App\Dictionary\Verb;
+use App\GameEngine;
 use App\System\HotKeySet;
 use App\System\Out;
 use App\System\SceneObject;
@@ -10,7 +11,7 @@ use App\System\SceneObject;
 class PrologSign
 {
 
-    public static function get(): HotKeySet
+    public static function init(): void
     {
         $sign = SceneObject::make("Schild","Türschild",function (Verb $verb){
             $txt = <<<TXT
@@ -56,7 +57,7 @@ class PrologSign
             ->addKey(Verb::EAT)
         ;
 
-        return $signSet;
+        GameEngine::addHotKey($signSet);
     }
 
 }

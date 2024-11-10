@@ -4,9 +4,8 @@ namespace App\Story;
 
 
 use App\GameEngine;
-use App\Story\Objects\PrologDoor;
-use App\Story\Objects\PrologSign;
-use App\System\Out;
+use App\Story\Objects\Prolog\PrologDoor;
+use App\Story\Objects\Prolog\PrologSign;
 
 class Prolog
 {
@@ -18,14 +17,15 @@ class Prolog
         TXT;
 
         GameEngine::resetHotKeys();
-        GameEngine::addHotKey(PrologSign::get());
-        GameEngine::addHotKey(PrologDoor::get());
+        PrologSign::init();
+        PrologDoor::init();
 
         return GameEngine::checkInput();
     }
 
     public static function end(): Scene
     {
+        GameEngine::resetHotKeys();
         return GameEngine::checkInput();
     }
 

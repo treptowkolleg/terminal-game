@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Story\Objects;
+namespace App\Story\Objects\Prolog;
 
 use App\Dictionary\Preposition;
-use App\Dictionary\Subject;
 use App\Dictionary\Verb;
 use App\GameEngine;
 use App\Story\Items\HomeKey;
@@ -11,13 +10,12 @@ use App\Story\Location\TrainStation;
 use App\System\HotKeySet;
 use App\System\Out;
 use App\System\SceneObject;
-use App\System\TextColor;
 
 class PrologDoor
 {
     public static bool $open = false;
 
-    public static function get(): HotKeySet
+    public static function init(): void
     {
         $object =  new SceneObject("Tür","Tür",function (Verb $verb, $subject, Preposition|null $prep){
             $text = <<<TXT
@@ -80,7 +78,7 @@ class PrologDoor
             ->addKey(Verb::USE, new HomeKey(), Preposition::WITH)
         ;
 
-        return $keys;
+        GameEngine::addHotKey($keys);
     }
 
 }

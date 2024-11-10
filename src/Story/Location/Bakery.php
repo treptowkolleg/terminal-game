@@ -10,8 +10,9 @@ class Bakery
 
     public static function interior(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Backbär";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
 }

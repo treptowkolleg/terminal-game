@@ -10,8 +10,9 @@ class GarbagePlace
 
     public static function exterior(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Mülltonnenbereich";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
 }

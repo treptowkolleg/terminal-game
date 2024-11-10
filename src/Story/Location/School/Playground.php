@@ -10,8 +10,9 @@ class Playground
 
     public static function basketball(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Basketballplatz";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
 }

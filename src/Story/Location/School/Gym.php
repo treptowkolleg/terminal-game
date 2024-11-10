@@ -10,14 +10,16 @@ class Gym
 
     public static function interior(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "In der Sporthalle";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
     public static function exterior(): Scene
     {
+        GameEngine::resetHotKeys();
         GameEngine::$sceneTitle = "Vor der Sporthalle";
-        return Scene::EXIT;
+        return GameEngine::checkInput();
     }
 
 }
