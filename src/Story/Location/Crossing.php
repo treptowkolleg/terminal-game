@@ -13,6 +13,8 @@ class Crossing
     public static function one(): Scene
     {
         GameEngine::$sceneTitle = "Kreuzung Kiefholzstr./Mosischstr.";
+        Go::to(Subject::SOUTH,Scene::STREET_KIEF);
+        Go::to(Subject::EAST, Scene::STREET_MOSI);
         GameEngine::$sceneText = <<<TXT
         
         TXT;
@@ -22,6 +24,8 @@ class Crossing
     public static function two(): Scene
     {
         GameEngine::$sceneTitle = "Kreuzung Kiefholzstr./Baumschulenstr.";
+        Go::to(Subject::NORTH,Scene::STREET_KIEF);
+        Go::to(Subject::EAST, Scene::STREET_BAUM);
         GameEngine::$sceneText = <<<TXT
         
         TXT;
@@ -32,7 +36,8 @@ class Crossing
     {
         GameEngine::$sceneTitle = "Kreuzung Baumschulenstr./Mosischstr.";
         GameEngine::$sceneText = <<<TXT
-        
+        Diese Kreuzung führt nördlich in die Mosichstraße und westlich in die Baumschulenstraße.
+        Östlich liegt der Bahnhof.
         TXT;
 
         Go::to(Subject::EAST, Scene::TRAIN_STATION_ENTRANCE);
