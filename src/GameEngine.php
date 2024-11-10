@@ -153,7 +153,6 @@ class GameEngine
                             $return = $hotKey->runAction();
                             if($return instanceof Scene) {
                                 GameEngine::resetHotKeys();
-                                sleep(1);
                                 return $return;
                             }
                             break 2;
