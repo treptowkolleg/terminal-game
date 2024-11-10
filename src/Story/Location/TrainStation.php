@@ -2,9 +2,11 @@
 
 namespace App\Story\Location;
 
+use App\Dictionary\Subject;
 use App\GameEngine;
 use App\Story\Objects\TrainStation\Stairs;
 use App\Story\Scene;
+use App\System\Go;
 
 class TrainStation
 {
@@ -19,6 +21,7 @@ class TrainStation
         TXT;
 
         Stairs::up();
+        Go::to(Subject::WEST, Scene::CROSSING_BAUM_MOSI);
 
         return GameEngine::checkInput();
     }

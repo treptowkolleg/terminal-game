@@ -31,6 +31,7 @@ class Stairs
 
         $key2 = new HotKeySet(Subject::DOWN);
         $key2->addKey(Verb::GO,$stairs,Preposition::TO,function (){return Scene::TRAIN_STATION_ENTRANCE;});
+        $key2->addKey(Verb::GO,null,Preposition::TO,function (){return Scene::TRAIN_STATION_ENTRANCE;});
 
 
         $keys = new HotKeySet($stairs);
@@ -54,6 +55,7 @@ class Stairs
 
         $key2 = new HotKeySet(Subject::UP);
         $key2->addKey(Verb::GO,$stairs,Preposition::TO,function (){return Scene::TRAIN_STATION_PLATFORM;});
+        $key2->addKey(Verb::GO,null,Preposition::TO,function (){return Scene::TRAIN_STATION_PLATFORM;});
 
 
         $keys = new HotKeySet($stairs);
