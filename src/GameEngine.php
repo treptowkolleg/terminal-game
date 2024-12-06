@@ -24,6 +24,8 @@ class GameEngine
     public static string $sceneTitle = "";
     public static string $sceneText = "";
 
+    public static string $map = "";
+
     public static array $inventar = [];
 
     /**
@@ -141,6 +143,7 @@ class GameEngine
     {
         Out::clearView();
         Out::printLn(self::$sceneTitle,TextColor::green);
+        Out::printLn("\n".self::$map."\n", TextColor::lightBlue);
         Out::printLn(self::$sceneText);
         while(true) {
             //self::printHotkeys();

@@ -11,9 +11,18 @@ use App\System\Go;
 class TrainStation
 {
 
+    # |↗ = nach oben
+    # ↙| = nach unten
+    # der Rest wie Pfeilrichtung, also Ost, West, Nord, Süd
+
     public static function entrance(): Scene
     {
         GameEngine::$sceneTitle = "S-Bhf Baumschulenweg - Eingang";
+        GameEngine::$map = <<<MAP
+           |↗
+        ←--+
+        MAP;
+
         GameEngine::$sceneText = <<<TXT
         Du befindest dich in der Eingangshalle des Bahnhofs. Ein junger Mann sitzt auf einer Bank. Eine Treppe führt
         nach oben zum Bahnsteig. Westlich von dir befindet sich der Ausgang zur Straße.
@@ -28,6 +37,10 @@ class TrainStation
     public static function platform(): Scene
     {
         GameEngine::$sceneTitle = "S-Bhf Baumschulenweg - Bahnsteig";
+        GameEngine::$map = <<<MAP
+         +
+        ↙|
+        MAP;
         GameEngine::$sceneText = <<<TXT
         Du befindest dich auf dem Bahnsteig. Wegen einer Störung fahren gerade keine Züge.
         Eine Treppe führt nach unten zum Eingang des Bahnhofs.

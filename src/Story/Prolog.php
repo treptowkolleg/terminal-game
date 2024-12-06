@@ -12,6 +12,11 @@ class Prolog
     public static function prolog(): Scene
     {
         GameEngine::$sceneTitle = "Startmenü";
+        GameEngine::$map = <<<MAP
+        ↑
+        |
+        +
+        MAP;
         GameEngine::$sceneText = <<<TXT
         Du befindest dich in einem leeren Raum. Lediglich eine Tür und ein daneben hängendes Schild sind zu sehen.
         TXT;
