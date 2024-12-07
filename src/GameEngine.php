@@ -37,6 +37,7 @@ class GameEngine
     public static bool $west = false;
     public static bool $down = false;
     public static bool $up = false;
+    public static bool $portalN = false;
 
     public static array $inventar = [];
 
@@ -58,7 +59,9 @@ class GameEngine
         bool $south = false,
         bool $west = false,
         bool $down = false,
-        bool $up = false,): void
+        bool $up = false,
+        bool $portalN = false
+    ): void
     {
         self::$north = $north;
         self::$east = $east;
@@ -66,11 +69,12 @@ class GameEngine
         self::$west = $west;
         self::$down = $down;
         self::$up = $up;
+        self::$portalN = $portalN;
     }
 
     public static function outputMap(): void
     {
-        echo LocationMap::render(self::$north, self::$east, self::$south, self::$west, self::$down, self::$up). "\n\n";
+        echo LocationMap::render(self::$north, self::$east, self::$south, self::$west, self::$down, self::$up, self::$portalN). "\n\n";
     }
 
     public function __destruct()

@@ -15,6 +15,10 @@ class LocationMap
         bool $west = false,
         bool $down = false,
         bool $up = false,
+        bool $portalN = false,
+        bool $portalE = false,
+        bool $portalS = false,
+        bool $portalW = false,
     ): string
     {
         $n = $north ? Out::string("N",TextColor::white, BackgroundColor::blue) : "N";
@@ -23,6 +27,10 @@ class LocationMap
         $w = $west ?  Out::string("W",TextColor::white, BackgroundColor::blue) : "W";
         $d = $down ?  Out::string("↘",TextColor::white, BackgroundColor::blue) : "↘";
         $u  = $up ?   Out::string("↗",TextColor::white, BackgroundColor::blue) : "↗";
+        $pN = $portalN ? Out::string("↑",TextColor::white, BackgroundColor::blue) : "↑";
+        $pE = $portalE ? Out::string("→",TextColor::white, BackgroundColor::blue) : "→";
+        $pS = $portalS ? Out::string("↓",TextColor::white, BackgroundColor::blue) : "↓";
+        $pW = $portalW ? Out::string("←",TextColor::white, BackgroundColor::blue) : "←";
         $c = Out::blink("+");
         $moves = Out::string(GameEngine::$moves,TextColor::lightBlue);
         $q = Out::string(GameEngine::$quests,TextColor::lightBlue);
@@ -33,11 +41,13 @@ class LocationMap
         }
         $verbs = rtrim($verbs, " |");
         return "
-    --$n--      | STATISTIK
-   /   $u \\     | Schritte: $moves
-  $w   $c   $e    | abgeschlossene Quests: $q
-   \\   $d /     | gefundene Secrets: $secrets
-    --$s--      | Verben: $verbs
+     -$n-
+    /   \\      | STATISTIK
+   /  $pN$u \\     | Schritte: $moves
+  $w  $pW$c$pE  $e    | abgeschlossene Quests: $q
+   \\  $pS$d /     | gefundene Secrets: $secrets
+    \\   /      | Verben: $verbs
+     -$s- 
     ";
     }
 

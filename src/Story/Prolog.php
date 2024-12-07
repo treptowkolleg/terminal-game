@@ -6,7 +6,6 @@ namespace App\Story;
 use App\GameEngine;
 use App\Story\Objects\Prolog\PrologDoor;
 use App\Story\Objects\Prolog\PrologSign;
-use App\System\LocationMap;
 
 class Prolog
 {
@@ -16,7 +15,7 @@ class Prolog
         GameEngine::$sceneText = <<<TXT
         Du befindest dich in einem leeren Raum. Lediglich eine Tür und ein daneben hängendes Schild sind zu sehen.
         TXT;
-        GameEngine::setMap(true);
+        GameEngine::setMap(portalN: true);
 
         PrologSign::init();
         PrologDoor::init();
