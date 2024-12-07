@@ -47,6 +47,11 @@ class Out
         echo sprintf("%s%s%s%s",self::setColor($color),self::setColor($background),$text,self::setColor('0'));
     }
 
+    public static function string(string $text, TextColor $color = TextColor::white, BackgroundColor $background = BackgroundColor::none): string
+    {
+        return sprintf("%s%s%s%s",self::setColor($color),self::setColor($background),$text,self::setColor('0'));
+    }
+
     /**
      * Gibt Alarm-Block MIT Zeilenumbruch aus.
      * @param string $text Text, der ausgegeben werden soll.
@@ -96,13 +101,18 @@ class Out
      * @param string|TextColor|BackgroundColor $color Farbcode
      * @return string codierter Farbcode
      */
-    private static function setColor(string|TextColor|BackgroundColor $color): string
+    public static function setColor(string|TextColor|BackgroundColor $color): string
     {
         if($color instanceof TextColor || $color instanceof BackgroundColor) {
             return "\033[{$color->value}m";
         } else {
             return "\033[{$color}m";
         }
+    }
+
+    public static function blink(string $text): string
+    {
+        return "\033[5m$text\033[0m";
     }
 
     public static function clearView(): void

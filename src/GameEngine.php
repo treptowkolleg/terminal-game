@@ -12,6 +12,7 @@ use App\Story\Scene;
 use App\System\HotKey;
 use App\System\HotKeySet;
 use App\System\In;
+use App\System\LocationMap;
 use App\System\Out;
 use App\System\SceneObject;
 use App\System\TextColor;
@@ -24,7 +25,18 @@ class GameEngine
     public static string $sceneTitle = "";
     public static string $sceneText = "";
 
+    public static int $moves = 0;
+    public static int $quests = 0;
+    public static int $secrets = 0;
+
     public static string $map = "";
+
+    public static bool $north = false;
+    public static bool $east = false;
+    public static bool $south = false;
+    public static bool $west = false;
+    public static bool $down = false;
+    public static bool $up = false;
 
     public static array $inventar = [];
 
@@ -38,6 +50,27 @@ class GameEngine
         $homeKey = new HomeKey();
         self::$inventar[] = $homeKey;
         self::resetHotKeys();
+    }
+
+    public static function setMap(
+        bool $north = false,
+        bool $east = false,
+        bool $south = false,
+        bool $west = false,
+        bool $down = false,
+        bool $up = false,): void
+    {
+        self::$north = $north;
+        self::$east = $east;
+        self::$south = $south;
+        self::$west = $west;
+        self::$down = $down;
+        self::$up = $up;
+    }
+
+    public static function outputMap(): void
+    {
+        echo LocationMap::render(self::$north, self::$east, self::$south, self::$west, self::$down, self::$up). "\n\n";
     }
 
     public function __destruct()
@@ -142,14 +175,21 @@ class GameEngine
     public static function checkInput(): Scene
     {
         Out::clearView();
-        Out::printLn(self::$sceneTitle,TextColor::green);
-        Out::printLn("\n".self::$map."\n", TextColor::lightBlue);
-        Out::printLn(self::$sceneText);
+        $i = true;
+        self::outputMap();
         while(true) {
+            if($i) {
+                Out::printLn(self::$sceneTitle, TextColor::green);
+                Out::printLn(self::$sceneText);
+                $i = false;
+            }
             //self::printHotkeys();
             Out::printLn("");
             $input =  explode(" ", In::readLn());
+            self::$moves++;
             $state = State::NOMATCH;
+            Out::clearView();
+            GameEngine::outputMap();
             foreach (self::$hotKeys as $hotKeySet) {
                 foreach ($hotKeySet->getKeys() as $hotKey) {
                     if($hotKey instanceof HotKey) {

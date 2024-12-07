@@ -7,6 +7,7 @@ use App\GameEngine;
 use App\Story\Objects\TrainStation\Stairs;
 use App\Story\Scene;
 use App\System\Go;
+use App\System\LocationMap;
 
 class TrainStation
 {
@@ -18,15 +19,11 @@ class TrainStation
     public static function entrance(): Scene
     {
         GameEngine::$sceneTitle = "S-Bhf Baumschulenweg - Eingang";
-        GameEngine::$map = <<<MAP
-           |↗
-        ←--+
-        MAP;
-
         GameEngine::$sceneText = <<<TXT
         Du befindest dich in der Eingangshalle des Bahnhofs. Ein junger Mann sitzt auf einer Bank. Eine Treppe führt
         nach oben zum Bahnsteig. Westlich von dir befindet sich der Ausgang zur Straße.
         TXT;
+        GameEngine::setMap(west: true, up: true);
 
         Stairs::up();
         Go::to(Subject::WEST, Scene::CROSSING_BAUM_MOSI);
@@ -37,14 +34,11 @@ class TrainStation
     public static function platform(): Scene
     {
         GameEngine::$sceneTitle = "S-Bhf Baumschulenweg - Bahnsteig";
-        GameEngine::$map = <<<MAP
-         +
-        ↙|
-        MAP;
         GameEngine::$sceneText = <<<TXT
         Du befindest dich auf dem Bahnsteig. Wegen einer Störung fahren gerade keine Züge.
         Eine Treppe führt nach unten zum Eingang des Bahnhofs.
         TXT;
+        GameEngine::setMap(down: true);
 
         Stairs::down();
 
