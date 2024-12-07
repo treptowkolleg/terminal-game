@@ -119,6 +119,12 @@ class GameEngine
 
     public static function resetHotKeys(): void
     {
+        self::$north = false;
+        self::$east = false;
+        self::$south = false;
+        self::$west = false;
+        self::$down = false;
+        self::$up = false;
         self::$hotKeys = [];
         $view = new HotKeySet();
         $view->addKey(Verb::VIEW,callback: function (){
