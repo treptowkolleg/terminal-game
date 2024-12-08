@@ -14,7 +14,7 @@ class HotKey
 {
 
     private Verb $verb;
-    private SceneObject|Subject|null $a;
+    private SceneObject|Subject|string|null $a;
     private Preposition|null $preposition;
     private SceneObject|Subject|null $b;
 
@@ -22,12 +22,12 @@ class HotKey
 
     /**
      * @param Verb $verb
-     * @param SceneObject|Subject|null $a
+     * @param SceneObject|Subject|string|null $a
      * @param Preposition|null $preposition
      * @param SceneObject|Subject|null $b
      * @param Closure|null $callback
      */
-    public function __construct(Verb $verb, SceneObject|Subject|null $a = null, Preposition|null $preposition = null, SceneObject|Subject|null $b = null, ?Closure $callback = null)
+    public function __construct(Verb $verb, SceneObject|Subject|string|null $a = null, Preposition|null $preposition = null, SceneObject|Subject|null $b = null, ?Closure $callback = null)
     {
         $this->verb = $verb;
         $this->a = $a;
@@ -75,7 +75,7 @@ class HotKey
         return State::PASS;
     }
 
-    public function getA(): SceneObject|Subject|null
+    public function getA(): SceneObject|Subject|string|null
     {
         return $this->a;
     }

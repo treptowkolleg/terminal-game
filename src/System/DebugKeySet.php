@@ -16,5 +16,6 @@ class DebugKeySet
         Go::debug("sc001", Scene::TRAIN_STATION_PLATFORM);
         Go::debug("sc002", Scene::TRAIN_STATION_ENTRANCE);
         Go::debug("sc005", Scene::BAKERY);
+        Go::debug("sc003", Scene::PHARMACY);
     }
 }

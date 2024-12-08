@@ -8,6 +8,8 @@ use App\Dictionary\Subject;
 use App\Dictionary\Verb;
 use App\Story\Bonus\Names;
 use App\Story\Items\HomeKey;
+use App\Story\Items\Joint;
+use App\Story\Items\Medicine;
 use App\Story\Scene;
 use App\System\DebugKeySet;
 use App\System\HotKey;
@@ -67,6 +69,8 @@ class GameEngine
 
     public function __construct()
     {
+        self::$availableItems[] = new Medicine();
+        self::$availableItems[] = new Joint();
         $homeKey = new HomeKey();
         self::$inventar[] = $homeKey;
         self::resetHotKeys();
