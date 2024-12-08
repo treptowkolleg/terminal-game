@@ -9,6 +9,7 @@ use App\Dictionary\Verb;
 use App\Story\Bonus\Names;
 use App\Story\Items\HomeKey;
 use App\Story\Scene;
+use App\System\DebugKeySet;
 use App\System\HotKey;
 use App\System\HotKeySet;
 use App\System\In;
@@ -24,13 +25,10 @@ class GameEngine
     public static Scene $scene = Scene::PROLOG;
     public static string $sceneTitle = "";
     public static string $sceneText = "";
-
     public static int $moves = 0;
     public static int $quests = 0;
     public static int $secrets = 0;
-
     public static string $map = "";
-
     public static bool $north = false;
     public static bool $east = false;
     public static bool $south = false;
@@ -41,8 +39,25 @@ class GameEngine
     public static bool $portalE = false;
     public static bool $portalS = false;
     public static bool $portalW = false;
-    private static bool $person = false;
+    public static bool $person = false;
+
+    /**
+     * Gegenstände, die noch in der Welt oder bei Charakteren sind.
+     * @var SceneObject[]
+     */
+    public static array $availableItems = [];
+
+    /**
+     * Gegenstände, die aufgesammelt, jedoch noch nicht verwendet wurden.
+     * @var SceneObject[]
+     */
     public static array $inventar = [];
+
+    /**
+     * Gegenstände, die bereits verwendet wurden.
+     * @var SceneObject[]
+     */
+    public static array $usedItems = [];
 
     /**
      * @var array<HotKeySet>
@@ -65,6 +80,9 @@ class GameEngine
         bool $down = false,
         bool $up = false,
         bool $portalN = false,
+        bool $portalE = false,
+        bool $portalS = false,
+        bool $portalW = false,
         bool $person = false,
     ): void
     {
@@ -75,6 +93,9 @@ class GameEngine
         self::$down = $down;
         self::$up = $up;
         self::$portalN = $portalN;
+        self::$portalE = $portalE;
+        self::$portalS = $portalS;
+        self::$portalW = $portalW;
         self::$person = $person;
     }
 
@@ -213,6 +234,7 @@ class GameEngine
         Out::clearView();
         $i = true;
         self::outputMap();
+        DebugKeySet::get();
         while(true) {
             if($i) {
                 Out::printLn(self::$sceneTitle, TextColor::green);

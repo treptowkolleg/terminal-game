@@ -22,17 +22,17 @@ class LocationMap
         bool $person = false,
     ): string
     {
-        $n = $north ? Out::string("N",TextColor::white, BackgroundColor::blue) : "N";
-        $e = $east ?  Out::string("O",TextColor::white, BackgroundColor::blue) : "O";
-        $s = $south ? Out::string("S",TextColor::white, BackgroundColor::blue) : "S";
-        $w = $west ?  Out::string("W",TextColor::white, BackgroundColor::blue) : "W";
-        $d = $down ?  Out::string("↘",TextColor::white, BackgroundColor::blue) : "↘";
-        $u  = $up ?   Out::string("↗",TextColor::white, BackgroundColor::blue) : "↗";
-        $pN = $portalN ? Out::string("↑",TextColor::white, BackgroundColor::blue) : "↑";
-        $pE = $portalE ? Out::string("→",TextColor::white, BackgroundColor::blue) : "→";
-        $pS = $portalS ? Out::string("↓",TextColor::white, BackgroundColor::blue) : "↓";
-        $pW = $portalW ? Out::string("←",TextColor::white, BackgroundColor::blue) : "←";
-        $person = $person ? Out::string("º",TextColor::white, BackgroundColor::green) : "º";
+        $n = $north ? Out::string("N",TextColor::white, BackgroundColor::blue) : Out::string("N",TextColor::lightGrey);
+        $e = $east ?  Out::string("O",TextColor::white, BackgroundColor::blue) : Out::string("O",TextColor::lightGrey);
+        $s = $south ? Out::string("S",TextColor::white, BackgroundColor::blue) : Out::string("S",TextColor::lightGrey);
+        $w = $west ?  Out::string("W",TextColor::white, BackgroundColor::blue) : Out::string("W",TextColor::lightGrey);
+        $d = $down ?  Out::string("↘",TextColor::white, BackgroundColor::blue) : Out::string("↘",TextColor::lightGrey);
+        $u  = $up ?   Out::string("↗",TextColor::white, BackgroundColor::blue) : Out::string("↗",TextColor::lightGrey);
+        $pN = $portalN ? Out::string("↑",TextColor::white, BackgroundColor::blue) : Out::string("↑",TextColor::lightGrey);
+        $pE = $portalE ? Out::string("→",TextColor::white, BackgroundColor::blue) : Out::string("→",TextColor::lightGrey);
+        $pS = $portalS ? Out::string("↓",TextColor::white, BackgroundColor::blue) : Out::string("↓",TextColor::lightGrey);
+        $pW = $portalW ? Out::string("←",TextColor::white, BackgroundColor::blue) : Out::string("←",TextColor::lightGrey);
+        $person = $person ? Out::string("º",TextColor::white, BackgroundColor::green) : Out::string("º",TextColor::lightGrey);
         $c = Out::blink("+");
         $moves = Out::string(GameEngine::$moves,TextColor::lightBlue);
         $q = Out::string(GameEngine::$quests,TextColor::lightBlue);
@@ -43,13 +43,11 @@ class LocationMap
         }
         $verbs = rtrim($verbs, " |");
         return "
-     -$n-
-    /   \\      | STATISTIK
-   / $person$pN$u \\     | Schritte: $moves
-  $w  $pW$c$pE  $e    | abgeschlossene Quests: $q
-   \\  $pS$d /     | gefundene Secrets: $secrets
-    \\   /      | Verben: $verbs
-     -$s- 
+     _--$n--_       | STATISTIK
+   /   $person$pN$u   \\     | Schritte: $moves
+  $w    $pW$c$pE    $e    | abgeschlossene Quests: $q
+   \\    $pS$d   /     | gefundene Secrets: $secrets
+     °--$s--°       | Verben: $verbs
     ";
     }
 

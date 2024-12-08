@@ -20,4 +20,13 @@ class Go
         GameEngine::addHotKey($key);
     }
 
+    public static function debug(string $sceneName, Scene $scene): void
+    {
+        $key = new HotKeySet(new SceneObject($sceneName,$sceneName,function (){}));
+        $key->addKey(Verb::GO, preposition: Preposition::TO, callback: function () use ($scene){
+            return $scene;
+        });
+        GameEngine::addHotKey($key);
+    }
+
 }
