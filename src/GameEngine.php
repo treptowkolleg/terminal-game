@@ -131,7 +131,15 @@ class GameEngine
         Out::printLn("$wording\n");
         In::readLn("Enter drücken, um fortzufahren ...");
         Out::clearView();
-        $input = explode(" ", In::readLn("Wie heißt du eigentlich? "));
+
+
+        while (true) {
+            $input = explode(" ", In::readLn("Wie heißt du eigentlich? "));
+            if(!empty($input[0])) {
+                break;
+            }
+        }
+
         foreach ($input as &$word) {
             $word = ucfirst($word);
         }
