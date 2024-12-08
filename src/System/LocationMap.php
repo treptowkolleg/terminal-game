@@ -19,6 +19,7 @@ class LocationMap
         bool $portalE = false,
         bool $portalS = false,
         bool $portalW = false,
+        bool $person = false,
     ): string
     {
         $n = $north ? Out::string("N",TextColor::white, BackgroundColor::blue) : "N";
@@ -31,6 +32,7 @@ class LocationMap
         $pE = $portalE ? Out::string("→",TextColor::white, BackgroundColor::blue) : "→";
         $pS = $portalS ? Out::string("↓",TextColor::white, BackgroundColor::blue) : "↓";
         $pW = $portalW ? Out::string("←",TextColor::white, BackgroundColor::blue) : "←";
+        $person = $person ? Out::string("º",TextColor::white, BackgroundColor::green) : "º";
         $c = Out::blink("+");
         $moves = Out::string(GameEngine::$moves,TextColor::lightBlue);
         $q = Out::string(GameEngine::$quests,TextColor::lightBlue);
@@ -43,7 +45,7 @@ class LocationMap
         return "
      -$n-
     /   \\      | STATISTIK
-   /  $pN$u \\     | Schritte: $moves
+   / $person$pN$u \\     | Schritte: $moves
   $w  $pW$c$pE  $e    | abgeschlossene Quests: $q
    \\  $pS$d /     | gefundene Secrets: $secrets
     \\   /      | Verben: $verbs

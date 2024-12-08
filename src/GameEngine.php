@@ -38,13 +38,17 @@ class GameEngine
     public static bool $down = false;
     public static bool $up = false;
     public static bool $portalN = false;
-
+    public static bool $portalE = false;
+    public static bool $portalS = false;
+    public static bool $portalW = false;
+    private static bool $person = false;
     public static array $inventar = [];
 
     /**
      * @var array<HotKeySet>
      */
     public static array $hotKeys = [];
+
 
     public function __construct()
     {
@@ -60,7 +64,8 @@ class GameEngine
         bool $west = false,
         bool $down = false,
         bool $up = false,
-        bool $portalN = false
+        bool $portalN = false,
+        bool $person = false,
     ): void
     {
         self::$north = $north;
@@ -70,11 +75,24 @@ class GameEngine
         self::$down = $down;
         self::$up = $up;
         self::$portalN = $portalN;
+        self::$person = $person;
     }
 
     public static function outputMap(): void
     {
-        echo LocationMap::render(self::$north, self::$east, self::$south, self::$west, self::$down, self::$up, self::$portalN). "\n\n";
+        echo LocationMap::render(
+            self::$north,
+            self::$east,
+            self::$south,
+            self::$west,
+            self::$down,
+            self::$up,
+            self::$portalN,
+            self::$portalE,
+            self::$portalS,
+            self::$portalW,
+            self::$person
+            ). "\n\n";
     }
 
     public function __destruct()
