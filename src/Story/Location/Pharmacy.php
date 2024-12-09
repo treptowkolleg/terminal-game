@@ -18,8 +18,8 @@ class Pharmacy
         Südlich von dir ist der Ausgang.
         TXT;
         Leave::from("apotheke",Scene::STREET_BAUM);
-        GameEngine::setMap(portalS: true, person: true);
         Pharmacist::init();
+        GameEngine::setMap(portalS: true, person: true);
         return GameEngine::checkInput();
     }
 
