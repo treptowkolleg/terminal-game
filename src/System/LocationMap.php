@@ -33,22 +33,23 @@ class LocationMap
         $pS = $portalS ? Out::string("↓",TextColor::white, BackgroundColor::blue) : Out::string("↓",TextColor::lightGrey);
         $pW = $portalW ? Out::string("←",TextColor::white, BackgroundColor::blue) : Out::string("←",TextColor::lightGrey);
         $person = $person ? Out::string("º",TextColor::white, BackgroundColor::green) : Out::string("º",TextColor::lightGrey);
-        $c = Out::blink("+");
+        $c = Out::blink("┼");
         $moves = Out::string(GameEngine::$moves,TextColor::lightBlue);
         $q = Out::string(GameEngine::$quests,TextColor::lightBlue);
-        $secrets = Out::string(GameEngine::$quests,TextColor::lightBlue);
-        $verbs = "";
-        foreach (Verb::cases() as $verb) {
-            $verbs .= $verb->value . " | ";
-        }
-        $verbs = rtrim($verbs, " |");
-        return "
-     _--$n--_       | STATISTIK
-   /   $person$pN$u   \\     | Schritte: $moves
-  $w    $pW$c$pE    $e    | abgeschlossene Quests: $q
-   \\    $pS$d   /     | gefundene Secrets: $secrets
-     °--$s--°       | Verben: $verbs
+        $secrets = Out::string(GameEngine::$secrets,TextColor::lightBlue);
+        $location = Out::string(GameEngine::$sceneTitle,TextColor::lightBlue);
+
+        return "╭─────────────╮
+│      $n      │ Schritte:\t\t$moves
+│   _-° °-_   │ abgeschlossene Quests:\t$q
+│  /  $person$pN$u  \\  │ gefundene Secrets:\t$secrets
+│ $w   $pW$c$pE   $e │
+│  \\   $pS$d  /  │
+│   °-_ _-°   │ Standort 
+│      $s      │ $location
+╰─────────────╯
     ";
+
     }
 
 }

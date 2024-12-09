@@ -30,38 +30,34 @@ class Peter
                         1 => "Kannst du mir ein Magenmittel besorgen?",
                         default => "Ich brauche dringend Medizin.",
                     };
-                    Out::print("Mann: ");
-                    Out::printLn($txt,TextColor::blue);
+                    Out::talk("Mann",$txt);
                     self::$counter++;
                     self::$talkedTo = true;
                 } else {
-                    Out::printLn("Mann: ");
-                    Out::printLn("Mir geht es wieder richtig blendend. Vielen Dank nochmals!",TextColor::blue);
+                    Out::talk("Mann","Mir geht es wieder richtig blendend. Vielen Dank nochmals!");
                 }
             }
             if($verb == Verb::USE and $subject instanceof Medicine) {
                 if( Inventar::has(Medicine::class)) {
-                    Inventar::use($subject);
-                    Out::printLn("Mann: ");
-                    Out::printLn("Wow, vielen Dank! Das wird mir auf jeden Fall helfen.",TextColor::blue);
+                    Out::talk("Mann","Wow, vielen Dank! Das wird mir auf jeden Fall helfen.");
+                    Inventar::use(Medicine::class);
+                    GameEngine::$quests++;
 
                     if(Inventar::collectable(Joint::class)) {
-                        Out::printLn("\nDer Mann hat dir zum Dank einen medizinischen Joint geschenkt.");
+                        Out::info("Der Mann hat dir zum Dank einen medizinischen Joint geschenkt.");
                         Inventar::collect(Joint::class);
                     }
                 }
             }
             if ($verb == Verb::USE and !($subject instanceof Medicine)) {
-                Out::printLn("Mann: ");
-                Out::printLn("Was soll ich denn damit?",TextColor::blue);
+                Out::talk("Mann","Was soll ich denn damit?");
             }
 
             if ($verb == Verb::TAKE) {
-                Out::print("Mann: ");
-                Out::printLn("Zerr' nicht so an mir!", TextColor::blue);
+                Out::talk("Mann","Zerr' nicht so an mir!");
             }
             if ($verb == Verb::LOOK) {
-                Out::printLn("Dem Mann geht es offenbar sehr schlecht. Ob er etwas falsches gegessen hat?");
+                Out::info("Dem Mann geht es offenbar sehr schlecht. Ob er etwas falsches gegessen hat?");
             }
         });
 

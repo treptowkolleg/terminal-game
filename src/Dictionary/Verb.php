@@ -22,11 +22,13 @@ enum Verb: string
     case TALK = "sprich";
     case TAKE = "nimm";
     case GO = "gehe";
+    case ENTER = "betritt";
+    case LEAVE = "verlasse";
     case OPEN = "öffne";
     case CLOSE = "schließe";
     case USE = "benutze";
     case READ = "lies";
-    case LOOK = "untersuche";
+    case LOOK = "betrachte";
     case CLIMB = "kletter";
     case EAT = "iss";
     case DRINK = "trinke";

@@ -39,8 +39,8 @@ class Crossing
     {
         GameEngine::$sceneTitle = "Kreuzung Baumschulenstr./Mosischstr.";
         GameEngine::$sceneText = <<<TXT
-        Diese Kreuzung führt nördlich in die Mosichstraße und westlich in die Baumschulenstraße.
-        Östlich liegt der Bahnhof.
+        Diese Kreuzung führt nördlich in die Mosisch- und westlich in die Baumschulenstraße.
+        Im Osten befindet sich der Bahnhof.
         TXT;
         GameEngine::setMap(north: true, east: true, west: true);
 

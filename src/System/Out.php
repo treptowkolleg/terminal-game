@@ -7,6 +7,34 @@ use App\GameEngine;
 class Out
 {
 
+    public static function talk(string $character, string $message): void
+    {
+        self::print("░▒ $character: ", TextColor::lightBlue);
+        self::print(">>", TextColor::lightBlue);
+        self::print("$message");
+        self::printLn("<<", TextColor::lightBlue);
+    }
+
+    public static function info(string $message): void
+    {
+        self::print("░▒ ");
+        self::printLn("$message");
+    }
+
+    public static function itemAdded(SceneObject $item): void
+    {
+        self::print("░▒ ", TextColor::cyan);
+        $label = ucfirst($item->getLabel());
+        self::printLn("{$label} erhalten", TextColor::cyan);
+    }
+
+    public static function itemUsed(SceneObject $item): void
+    {
+        self::print("░▒ ", TextColor::purple);
+        $label = ucfirst($item->getLabel());
+        self::printLn("{$label} verwendet", TextColor::purple);
+    }
+
     /**
      * Gibt Text MIT Zeilenumbruch aus.
      * @param string $text Text, der ausgegeben werden soll.

@@ -117,7 +117,7 @@ class GameEngine
             self::$portalS,
             self::$portalW,
             self::$person
-            ). "\n\n";
+            ). "\n";
     }
 
     public function __destruct()
@@ -144,6 +144,21 @@ class GameEngine
     {
         date_default_timezone_set("Europe/Berlin");
         $hour = date("H");
+        Out::clearView();
+        $tree = <<<TREE
+
+      INFORMATIK
+         ▃▃▃▃   
+      ▗▟▉▉▉▉▉▉▙▖        
+     ▝▉▉▉▉▉▉▉▉▉▉▘
+      ▝▉▉▉▉▉▉▉▉▘
+          ▉▉
+        ▃▟▉▉▙▃
+    TREPTOW-KOLLEG
+TREE;
+
+        Out::printLn($tree, TextColor::lightBlue);
+        Out::printLn("    Text-Adventure\n\n", TextColor::white);
 
         $wording = match (true) {
             $hour > 6 && $hour < 8 => "Es ist ziemlich früh. Du bist gestern wohl ziemlich früh ins Bett gegangen, oder?",
@@ -152,7 +167,6 @@ class GameEngine
             $hour <= 6 || $hour >= 23 => "Es ist mitten in der Nacht. Andere Leute schlafen für gewöhnlich um diese Zeit.\nNa gut, jetzt bin ich sowieso wach. Dann lass uns eine Runde zocken.",
             default => "Eine gute Zeit zum Zocken, oder?"
         };
-        Out::clearView();
         Out::printLn("$wording\n");
         In::readLn("Enter drücken, um fortzufahren ...");
         Out::clearView();
@@ -183,7 +197,6 @@ class GameEngine
         self::$hotKeys = [];
         $view = new HotKeySet();
         $view->addKey(Verb::VIEW,callback: function (){
-            Out::printLn(self::$sceneTitle,TextColor::green);
             Out::printLn(self::$sceneText);
         });
 
@@ -195,10 +208,10 @@ class GameEngine
         $inventar = new HotKeySet(Subject::INVENTAR);
         $inventar
             ->addKey(Verb::LOOK,callback: function (){
-            Out::printLn("Du schleppst folgendes mit dir herum:");
+            Out::printLn("░░ INVENTAR");
             foreach (GameEngine::$inventar as $item) {
                 if($item instanceof SceneObject) {
-                    Out::printLn(ucfirst($item),TextColor::cyan);
+                    Out::printLn("░─ " . ucfirst($item),TextColor::cyan);
                 }
             }
         });
@@ -241,7 +254,6 @@ class GameEngine
         DebugKeySet::get();
         while(true) {
             if($i) {
-                Out::printLn(self::$sceneTitle, TextColor::green);
                 Out::printLn(self::$sceneText);
                 $i = false;
             }

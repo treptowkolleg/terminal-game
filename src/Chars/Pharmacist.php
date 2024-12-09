@@ -22,19 +22,17 @@ class Pharmacist
             if($verb == Verb::TALK){
                 if(Peter::$talkedTo) {
                     if(Inventar::collectable(Medicine::class)) {
-                        Out::print("Apothekerin: ");
-                        Out::printLn("Du benötigst etwas gegen Übelkeit? Glücklicherweise habe ich noch eine Packung vorrätig.\nBitte sehr.",TextColor::blue);
+                        Out::talk("Apothekerin","Du benötigst etwas gegen Übelkeit? Glücklicherweise habe ich noch eine Packung vorrätig.");
                         Inventar::collect(Medicine::class);
                     } else {
-                        Out::print("Apothekerin: ");
-                        Out::printLn("Mehr als eine Packung hatte ich leider nicht vorrätig.",TextColor::blue);
+                        Out::talk("Apothekerin","Mehr als eine Packung hatte ich leider nicht vorrätig.");
                     }
                 } else {
-                    Out::printLn("Dir fällt nicht ein, was du aus der Apotheke kaufen willst.");
+                    Out::info("Dir fällt nicht ein, was du aus der Apotheke kaufen willst.");
                 }
             }
             if ($verb == Verb::LOOK) {
-                Out::printLn("Die Apothekerin macht einen sehr kompetenten und freundlichen Eindruck.");
+                Out::info("Die Apothekerin macht einen sehr kompetenten und freundlichen Eindruck.");
             }
         });
 

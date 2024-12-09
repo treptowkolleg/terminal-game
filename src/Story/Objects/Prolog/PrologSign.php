@@ -38,14 +38,14 @@ class PrologSign
             TXT;
 
             if($verb == Verb::EAT)
-                Out::printLn("Daf Fild ift ftärker alf deine Fähne.");
+                Out::info("Daf Fild ift ftärker alf deine Fähne.");
 
             if($verb == Verb::READ)
                 Out::printLn($txt);
             if ($verb == Verb::LOOK)
-                Out::printLn("Das Schild scheint eine Anleitung zu beinhalten.");
+                Out::info("Das Schild scheint eine Anleitung zu beinhalten.");
             if($verb == Verb::TAKE)
-                Out::printLn("Das Schild ist festgeschraubt. Du kannst es nicht mitnehmen.");
+                Out::info("Das Schild ist festgeschraubt. Du kannst es nicht mitnehmen.");
         });
 
         // lies Schild

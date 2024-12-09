@@ -5,6 +5,7 @@ namespace App\Story\Location;
 use App\Dictionary\Subject;
 use App\GameEngine;
 use App\Story\Scene;
+use App\System\Enter;
 use App\System\Go;
 
 class Street
@@ -21,8 +22,15 @@ class Street
     public static function two(): Scene
     {
         GameEngine::$sceneTitle = "Baumschulenstraße";
+        GameEngine::$sceneText = <<<TXT
+        In der Baumschulenstraße befinden sich zahlreiche Geschäfte. Die meisten davon haben allerdings noch
+        geschlossen. Lediglich die Apotheke ist bereits geöffnet.
+        TXT;
+
+        Enter::to("apotheke",Scene::PHARMACY);
         Go::to(Subject::WEST,Scene::CROSSING_KIEF_BAUM);
         Go::to(Subject::EAST, Scene::CROSSING_BAUM_MOSI);
+        GameEngine::setMap(east: true, west: true, portalN: true);
         return GameEngine::checkInput();
     }
 

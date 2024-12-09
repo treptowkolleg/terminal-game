@@ -24,12 +24,12 @@ class TrainStation
         Du befindest dich in der Eingangshalle des Bahnhofs. Ein junger Mann sitzt auf einer Bank. Eine Treppe führt
         nach oben zum Bahnsteig. Westlich von dir befindet sich der Ausgang zur Straße.
         TXT;
-        GameEngine::setMap(west: true, up: true, person: true);
 
         Peter::init();
         Stairs::up();
         Go::to(Subject::WEST, Scene::CROSSING_BAUM_MOSI);
 
+        GameEngine::setMap(west: true, up: true, person: true);
         return GameEngine::checkInput();
     }
 

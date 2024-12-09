@@ -62,7 +62,7 @@ class PrologDoor
                 }
             }
 
-            Out::printLn($response);
+            Out::info($response);
             return null;
         });
 
