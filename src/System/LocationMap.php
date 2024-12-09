@@ -32,7 +32,7 @@ class LocationMap
         $pE = $portalE ? Out::string("→",TextColor::white, BackgroundColor::blue) : Out::string("→",TextColor::lightGrey);
         $pS = $portalS ? Out::string("↓",TextColor::white, BackgroundColor::blue) : Out::string("↓",TextColor::lightGrey);
         $pW = $portalW ? Out::string("←",TextColor::white, BackgroundColor::blue) : Out::string("←",TextColor::lightGrey);
-        $person = $person ? Out::string("º",TextColor::white, BackgroundColor::green) : Out::string("º",TextColor::lightGrey);
+        $person = $person ? Out::string("º",TextColor::white, BackgroundColor::cyan) : Out::string("º",TextColor::lightGrey);
         $c = Out::blink("┼");
         $moves = Out::string(GameEngine::$moves,TextColor::lightBlue);
         $q = Out::string(GameEngine::$quests,TextColor::lightBlue);
