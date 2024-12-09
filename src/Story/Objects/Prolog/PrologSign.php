@@ -24,12 +24,12 @@ class PrologSign
             
             BEISPIELE:
             umsehen
-            untersuche Schild
+            betrachte Schild
             gehe nach Norden
             
             INVENTAR:
-            untersuche Inventar
-            untersuche [Gegenstand] im Inventar
+            betrachte Inventar
+            betrachte [Gegenstand] im Inventar
             benutze [Gegenstand] mit Tür
             
             SPIEL BEENDEN:
