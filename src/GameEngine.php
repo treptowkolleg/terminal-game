@@ -65,6 +65,9 @@ class GameEngine
      * @var array<HotKeySet>
      */
     public static array $hotKeys = [];
+    private static int $width = 0;
+    private static int $height = 0;
+    private static bool $stty;
 
 
     public function __construct()
@@ -126,9 +129,141 @@ class GameEngine
         Out::printHeading("Das Spiel wurde beendet!");
     }
 
+    public static function getWidth(): int
+    {
+        $width = getenv('COLUMNS');
+        if (false !== $width) {
+            echo $width;
+            return (int) trim($width);
+        }
+
+        if (null === self::$width) {
+            self::initDimensions();
+        }
+
+        return self::$width ?: 80;
+    }
+
+    public static function getHeight(): int
+    {
+        $height = getenv('LINES');
+        if (false !== $height) {
+            return (int) trim($height);
+        }
+
+        if (null === self::$height) {
+            self::initDimensions();
+        }
+
+        return self::$height ?: 50;
+    }
+
+    private static function initDimensions(): void
+    {
+        if ('\\' === \DIRECTORY_SEPARATOR) {
+            if (preg_match('/^(\d+)x(\d+)(?: \((\d+)x(\d+)\))?$/', trim(getenv('ANSICON')), $matches)) {
+                // extract [w, H] from "wxh (WxH)"
+                // or [w, h] from "wxh"
+                self::$width = (int) $matches[1];
+                self::$height = isset($matches[4]) ? (int) $matches[4] : (int) $matches[2];
+            } elseif (!self::hasVt100Support() && self::hasSttyAvailable()) {
+                // only use stty on Windows if the terminal does not support vt100 (e.g. Windows 7 + git-bash)
+                // testing for stty in a Windows 10 vt100-enabled console will implicitly disable vt100 support on STDOUT
+                self::initDimensionsUsingStty();
+            } elseif (null !== $dimensions = self::getConsoleMode()) {
+                // extract [w, h] from "wxh"
+                self::$width = (int) $dimensions[0];
+                self::$height = (int) $dimensions[1];
+            }
+        } else {
+            self::initDimensionsUsingStty();
+        }
+    }
+
+    private static function hasVt100Support(): bool
+    {
+        return \function_exists('sapi_windows_vt100_support') && sapi_windows_vt100_support(fopen('php://stdout', 'w'));
+    }
+
+    public static function hasSttyAvailable(): bool
+    {
+        if (null !== self::$stty) {
+            return self::$stty;
+        }
+
+        // skip check if exec function is disabled
+        if (!\function_exists('exec')) {
+            return false;
+        }
+
+        exec('stty 2>&1', $output, $exitcode);
+
+        return self::$stty = 0 === $exitcode;
+    }
+
+    private static function initDimensionsUsingStty(): void
+    {
+        if ($sttyString = self::getSttyColumns()) {
+            if (preg_match('/rows.(\d+);.columns.(\d+);/i', $sttyString, $matches)) {
+                // extract [w, h] from "rows h; columns w;"
+                self::$width = (int) $matches[2];
+                self::$height = (int) $matches[1];
+            } elseif (preg_match('/;.(\d+).rows;.(\d+).columns/i', $sttyString, $matches)) {
+                // extract [w, h] from "; h rows; w columns"
+                self::$width = (int) $matches[2];
+                self::$height = (int) $matches[1];
+            }
+        }
+    }
+
+    private static function getSttyColumns(): ?string
+    {
+        return self::readFromProcess('stty -a | grep columns');
+    }
+
+    private static function getConsoleMode(): ?array
+    {
+        $info = self::readFromProcess('mode CON');
+
+        if (null === $info || !preg_match('/--------+\r?\n.+?(\d+)\r?\n.+?(\d+)\r?\n/', $info, $matches)) {
+            return null;
+        }
+
+        return [(int) $matches[2], (int) $matches[1]];
+    }
+
+    private static function readFromProcess(string $command): ?string
+    {
+        if (!\function_exists('proc_open')) {
+            return null;
+        }
+
+        $descriptorSpec = [
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ];
+
+        $process = proc_open($command, $descriptorSpec, $pipes, null, null, ['suppress_errors' => true]);
+        if (!\is_resource($process)) {
+            return null;
+        }
+
+        $info = stream_get_contents($pipes[1]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        proc_close($process);
+
+        return $info;
+    }
+
     public function start(): void
     {
         Out::clearView();
+        self::initDimensionsUsingStty();
+        $w = self::getWidth();
+        $h = self::getHeight();
+        Out::printLn("Das Terminal hat die Maße $w x $h Zeichen.", TextColor::lightCyan);
+        In::readLn("Weiter zum Spiel... ");
         $this->intro();
         while(true) {
             Scene::match(self::$scene);
