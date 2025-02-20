@@ -11,6 +11,7 @@ use App\Story\Items\HomeKey;
 use App\Story\Items\Joint;
 use App\Story\Items\Medicine;
 use App\Story\Scene;
+use App\System\Canvas;
 use App\System\DebugKeySet;
 use App\System\HotKey;
 use App\System\HotKeySet;
@@ -262,7 +263,17 @@ class GameEngine
         self::initDimensionsUsingStty();
         $w = self::getWidth();
         $h = self::getHeight();
-        Out::printLn("Das Terminal hat die Maße $w x $h Zeichen.", TextColor::lightCyan);
+        Canvas::clear();
+        Canvas::draw("Hallo, ich bin farblos!\nIst das nicht cool?",1,1);
+        //Canvas::draw(Out::string("Hallo, ich bin blau!", TextColor::lightBlue),2,6);
+        Canvas::draw("Das Terminal hat die Maße $w x $h Zeichen.",1,-1);
+        Canvas::draw("Ich bin ein blanker Text ohne Formatierungen.",-1,-1);
+        Canvas::render();
+
+        //Canvas::draw(LocationMap::render(),-30,-1);
+        //Canvas::draw(Out::string("Das Terminal hat die Maße $w x $h Zeichen.", TextColor::lightCyan),-2,-2);
+
+        //Out::printLn("");
         In::readLn("Weiter zum Spiel... ");
         $this->intro();
         while(true) {

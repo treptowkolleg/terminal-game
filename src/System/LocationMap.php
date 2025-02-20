@@ -40,15 +40,14 @@ class LocationMap
         $location = Out::string(GameEngine::$sceneTitle,TextColor::lightBlue);
 
         return "╭─────────────╮
-│      $n      │ Schritte:\t\t$moves
-│   _-° °-_   │ abgeschlossene Quests:\t$q
-│  /  $person$pN$u  \\  │ gefundene Secrets:\t$secrets
+│      $n      │
+│   _-° °-_   │
+│  /  $person$pN$u  \\  │
 │ $w   $pW$c$pE   $e │
 │  \\   $pS$d  /  │
-│   °-_ _-°   │ Standort 
-│      $s      │ $location
-╰─────────────╯
-    ";
+│   °-_ _-°   │
+│      $s      │
+╰─────────────╯";
 
     }
 
